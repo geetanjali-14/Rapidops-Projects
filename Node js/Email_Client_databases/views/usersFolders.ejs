@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+    </style>
+  </head>
+  <body>
+    <h1>Assigned Folder</h1>
+    <div>
+             <% for (let i = 0; i < Folder.length; i++) { %>
+                <h3><%=Folder[i].name%></h3>
+                 <button> <a href="/deleteFolder/<%= Folder[i].folder_id %>">delete</a></button>
+                <button><a href="/editFolder/<%= Folder[i].folder_id%>">update</a></button>
+                <br>
+            <% } %>
+    </div>
+    <br>
+    <button><a href="/add_new_folder">Add New Folder</a></button>
+  </body>
+</html>

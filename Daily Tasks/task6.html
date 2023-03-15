@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let str="This is a apple";
+        let substr="a";
+        let ind=[];
+        str=str.split(" ");
+        substr=substr.split(" ");
+        for(let i=0;i<substr.length;i++){
+         for(let j=0;j<str.length;j++){
+            if(substr[i]==str[j])
+                {
+                 console.log(j);
+                  ind.push(j);
+                }
+            }
+        }
+        for(let i=0;i<ind.length-1;i++){
+        if(ind[i]<ind[i+1]){
+            console.log("Matched");
+            }
+             if(ind[i]>ind[i+1]){
+                console.log("no");
+            }
+        }
+    </script>
+</body>
+</html>

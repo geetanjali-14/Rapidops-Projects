@@ -1,0 +1,36 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        let arr=[0,1,1,2,3,4,5,5,5,6,7,7,8,9]
+        let n=14
+        let max=0
+        let most_freq=0
+        let x
+        for(let i=0;i<n;i++)
+        {
+            for(let j=i;j<n;j++)
+            {
+                if(arr[i]==arr[j])
+                    max++;                  //if an elements occur more than 1 time increase its count
+                if (most_freq<max)
+                    {
+                    most_freq=max;          // store it's occurance time
+                    x = arr[i];             // store most occured element's value
+                    }
+            }
+            max=0
+        }
+        console.log("Max Frequent element is ",x);
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+
+        //Union
+        let a = [0,1,2,3]                      
+        let b = [3,4,5];
+        let arr=[]
+        for(let i=0;i<4;i++)
+        {
+            arr.push(a[i]);             //Pushing elemnts of array a in new array
+        }
+        for(let i=0;i<3;i++)
+        {
+            arr.push(b[i]);             //Pushing elemnts of array b in new array
+        }
+        let s = new Set(arr);           //Making set to remove duplicate elements from array
+        console.log("Union: ",s);
+        
+
+        //Difference
+        let k=0,del_arr=[];
+        for(i=0; i<a.length; i++)
+        {
+            n = a[i]; 
+            let found = 0;
+            for(j=0; j<b.length; j++){
+            if(n == b[j])
+            {
+                found = 1;                      // check if the element in array a occurs in array b 
+                break;                          //If yes then break the loop
+            }
+            }
+            if(found == 0){
+            del_arr[k] = n;                     //Loop of elements that occured in 1st array but not in 2nd array 
+            k++;
+            }
+        }
+        console.log("array a - array b = ",del_arr);
+
+
+    //Intersection
+        const len=arr.length;
+        let arr_inter=[];
+        let index=0;
+            for (let i = 0; i < len - 1; i++) 
+            {
+                for (let j = i + 1; j < len; j++)
+                {
+                if (arr[i] === arr[j])                  //checks if an elements occurs in both of the arrays
+                {
+                    arr_inter[index] = arr[i];          // If yes then add it in new array
+                    index++;
+                }
+                }
+            }
+            console.log("Intersction of array: ",arr_inter);
+    </script>
+</head>
+<body>
+</body>
+</html>
+

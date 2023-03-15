@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+// let str='**{{symbol}}::{{code}}--{{amount}}@@'
+//output:  {{code}}--{{amount}}
+
+// let str='22{{code}}::{{symbol}}--{{amount}}##'
+//output: {{code}}::{{amount}}
+
+// let str='2{{code}}::{{amount}}::{{symbol}}'
+//output: {{code}}::{{amount}}
+
+let str=prompt("Enter String");
+
+let  index_symbol=str.indexOf('{{symbol}}');
+let  index_count=str.indexOf('{{code}}'); 
+let  index_amount=str.indexOf('{{amount}}'); 
+  if(str='{{symbol}}'){
+    console.log(" ");
+  }
+
+   else if( index_symbol < index_count && index_symbol< index_amount){
+        let s= str.replace(str.substring(0, index_count),'');
+        let new_index_amount=(s.indexOf('{{amount}}'));
+        let str_len=s.length
+        let final_str = s.replace(s.substring( new_index_amount+10,str_len),'');
+        console.log(final_str)
+        }
+          
+          else if( index_symbol> index_count &&  index_symbol< index_amount)
+          { 
+              let new_str=str.replace(str.substring( index_symbol, index_amount),'');
+              // console.log(new_str)
+              let len=new_str.length;
+              let new_index_count=new_str.indexOf('{{code}}');
+              new_str = new_str.replace(new_str.substring(0,new_index_count),"");
+              let new_index_amount=new_str.indexOf('{{amount}}');
+              new_str = new_str.replace(new_str.substring(new_index_amount+10,len),"");
+              console.log(new_str)
+          }
+          else if( index_symbol > index_count &&  index_symbol > index_amount){
+              str=str.replace(str.substring(0,index_count),"");
+              console.log(str.substring(0, index_amount+10));
+             }
+  </script>
+</body>
+</html>

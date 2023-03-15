@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            background-color: aliceblue;
+        }
+        ul,li{
+            list-style: none;
+            border:1px solid black;
+            font-size: 20px;
+            padding:10px;
+        }
+        #container,input
+        {
+            padding:10px;
+            width:20%;
+            text-align: center;
+            /* align-items: center; */
+            margin-right: 15em;
+        }
+       mark{
+        background-color: yellow;
+       }
+    </style>
+</head>
+<body>
+    <input type="text" placeholder="Enter name here" onkeyup="search()" id="input_name">
+    <div id="container">
+    <li id="name">Ashish Shah</li>
+    <li id="name">Rashmin Chhatrala</li>
+    <li id="name">Yash Dubey</li>
+    <li id="name">Prakash Jain</li>
+    <li id="name">Yashraj Singh</li>
+    <li id="name">Viraj Sinha</li>
+    <li id="name">Rajesh Kumar</li>
+    <li id="name">Mahesh Marwadi</li>
+    <li id="name">Suresh Sahni</li>
+    <li id="name">Amar Vilas</li>
+    <li id="name">Virdas Singhania</li>
+    <li id="name">Rajeshwari Bindra</li>
+    <li id="name">Kartikey Pandey</li>
+    <li id="name">Komal Jain</li>
+    <li id="name">Kartik Koli</li>
+    <li id="name">Rishi Kohli</li>
+    <li id="name">Kunwar Kharwanda</li>
+    <li id="name">Kamlesh Tomar</li>
+    <li id="name">Risabh Khare</li>
+    <li id="name">Prashant Kamle</li>
+    <li id="name">Shri Raj</li>
+    <li id="name">Bhuvam Bam</li>
+    <li id="name">Bhupendra Singh</li>
+    <li id="name">Virendra Bhupati</li>
+    <li id="name">Birendra Bhalerao</li>
+</div>
+<script>
+    function search()
+    {
+        let input,input_lowercase,ul,li,search_txt,i,txt;
+        input=document.getElementById("input_name");
+        search_part=input.value.toLowerCase();
+        li=document.getElementsByTagName("li")
+        //console.log(li)
+        for (let i =0;i<li.length;i++)
+        {
+            nameInList=(li[i].innerText)
+            startIndex=nameInList.toLowerCase().indexOf(search_part)
+            endIndex=nameInList.toLowerCase().indexOf(search_part.slice(-1))
+            
+            if(startIndex>-1)
+            {
+                li[i].style.display="";
+                // console.log(startIndex)
+                // console.log(endIndex)
+                //let highlightedPart=nameInList.substr(startIndex,endIndex)
+                // console.log(highlightedPart)
+                //let text=new RegExp(highlightedPart,'g')
+                //console.log(text)
+                //(nameInList.replace(text,'<mark>text</mark>'))
+                // highlightedPart.style.color='Yellow';
+
+            }
+            else
+            {
+                li[i].style.display='none';
+            }
+
+        }
+    }
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

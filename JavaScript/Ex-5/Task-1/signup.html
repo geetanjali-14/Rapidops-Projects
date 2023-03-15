@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Sign-up</title>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Sign-Up</h1>
+        <div class="data">
+            <label for="name" style="margin-left:40px;"> Name :</label>
+            <input type="text" id="name" placeholder="Name" >
+        </div>
+    <div class="data">
+        <label for="username"> Username :</label>
+        <input type="text" id="username" placeholder="Username" >
+    </div>
+    <div class="data">
+        <label for="pwd">Password :</label>
+        <input type="password" id='pwd' placeholder="Enter Password" >
+    </div>
+    <div class="data" style="margin-right: 100px;">
+        <label for="pawd" >Confirm Password :</label>
+        <input type="password" id='con_pwd' placeholder="Confirm Password" >
+    </div>
+    <div class="data">
+        <label for="user_type"> Admin
+        <input type="radio" id='admin' value="Admin" name='user_type' ></label>
+
+        <label for="student" style="margin-left:40px;"> Student
+        <input type="radio" id='student' value="Student" name='user_type'></label>
+    </div>
+    <button class="btn" id="submit_btn1">Submit</button>
+    <a href="login.html"><button class="btn1" >Back to Login</button></a>
+</div>
+
+    <script>
+        //Sign-up 
+        document.getElementById('submit_btn1').addEventListener('click',function (e){
+        let password=document.getElementById('pwd').value;
+        let confirm_pwd=document.getElementById('con_pwd').value;
+        let username=document.getElementById('username').value;
+        let name=document.getElementById("name").value;
+        let users = JSON.parse(localStorage.getItem('Users')) || [];
+      
+        let user_type;
+        let ele=document.getElementsByName('user_type');
+        for(let i=0;i<ele.length;i++)
+        {
+            if(ele[i].checked)
+            {
+                user_type=ele[i].value;
+            }
+        }
+        for(let i=0;i<localStorage.length;i++)
+            {
+                key=localStorage.key(i);
+                temp=localStorage.getItem(key);
+                t=JSON.parse(temp);
+                t.forEach(element => 
+                {
+                            if(username==element.Username)
+                            {
+                             alert("User already Exists with this username. Fill Again")
+                             document.getElementById('username').inputArea.value = '';
+                            }
+                        }
+                )
+            }
+        if(!name||!password||!confirm_pwd||!user_type||!username)
+        {
+            alert("Fill all the fields");
+        }            
+        else{
+            if (password==confirm_pwd)
+            {
+                let userData = {Username:username,
+                Name:name,
+                Password:password,
+                User_Type:user_type}
+                users.push(userData);
+                localStorage.setItem('Users', JSON.stringify(users));
+                alert('Sign up successful.');
+                location.replace('./login.html')
+            }
+            else
+                alert('Both of the Password should be same.');
+            }
+        }
+        
+        )
+
+    </script>
+</body>
+</html>

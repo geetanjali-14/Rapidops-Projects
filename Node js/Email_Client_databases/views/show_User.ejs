@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+    <% for (let i = 0; i < Users.length; i++) { %>
+        <h3><%=Users[i].name%></h3>
+        <button> <a href="/deleteUser/<%= Users[i].user_id %>">delete</a></button>
+        <button><a href="/editUser/<%= Users[i].user_id%>">update</a></button>
+        <br>
+    <% } %>
+</div>
+<br>
+    <button><a href="/addUser">Add New User</a></button>
+    <button><a href="/usersFolders">List of Folders</a></button>
+</body>
+</html>

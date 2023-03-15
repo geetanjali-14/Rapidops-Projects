@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        *{
+            margin:5px;
+        }
+        h1{
+            text-align: center;
+            margin-top: 30px;
+        }
+        .first_form{
+            background-color: aliceblue;
+        }
+        .display
+        {
+            margin-top: 30px;
+        }
+        th, td {
+            padding: 15px;
+            background-color: azure;
+        }
+        td{
+            color:rgb(75, 75, 75)
+        }
+    </style>
+    <title>Form Validtion</title>
+</head>
+<body>
+    <div class="first_form">
+        <h1>Form with HTML validation</h1>
+    <form  id="u_form">
+        <label for="f_name">First Name</label>
+            <input type="text" placeholder="Enter First Name" name="f_name" minlength="6" id="f_name" autocomplete="off" required>
+        <br><br>
+        <label for="l_name">Last Name</label>
+            <input type="text" placeholder="Enter Last Name" name="l_name" minlength="6" id="l_name" autocomplete="off" required>
+        <br><br>
+        <label for="email" for="email">E-mail</label>
+            <input type="email" placeholder="Enter E-mail" name="email" id="email" required>
+        <br><br>
+        <label for="age">Age</label>
+        <input type="number" max="26" min="13" id="age" name="age" required>
+        <br><br>
+        <label for="dob">Date Of Birth</label>
+        <input type="date" max="2023-01-20" name="dob" id="dob" required>
+        <br><br>
+
+        <!-- place -->
+        <label for="places">Choose a place:</label>
+        <br>
+            <select id="places" name="place" required>
+                <option hidden>Select</option>
+                <option value="Gujrat">Gujrat</option>
+                <option value="Maharashtra">Maharashtra</option>
+                <option value="Delhi">Delhi</option>
+                <option value="Rajasthan">Rajasthan</option>
+            </select>
+            <br><br>
+
+            <!--Payment method  -->
+        <label for="payment" >Choose Payment method : </label>
+        <br>
+            <select id="payment" name="pay_method" >
+                <option hidden>Select</option>
+                <option value="Dedit Card">Debit Card</option>
+                <option value="Credit Card">Credit Card</option>
+                <option value="Cash">Cash</option>
+                <option value="UPI">UPI</option>
+            </select>
+            <br><br>
+
+        <!-- Travelling Vehicle -->
+        <label for="travel">Choose Travelling Vehicle :</label>
+        <br>
+            <select id="travel" name="travel1" >
+                <option hidden>Select</option>
+                <option value="inova">Inova</option>
+                <option value="scopio">Scopio</option>
+                <option value="I10">I10</option>
+                <option value="bike">Bike</option>
+            </select>   
+        <br><br>
+            <input type="submit" value="Submit">
+    </form>
+</div>
+    <div>
+        <table id="data" border="2">
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>E-mail</th>
+                <th>Age</th>
+                <Th>Date Of Birth</Th>
+                <th>Place</th>
+                <th>Payment Method</th>
+                <th>Travelling Vehicle</th>
+            </tr>
+        </table>
+    </div>
+    <script>
+
+        let form=document.querySelector("form");
+        let table=document.getElementById('data');
+        form.addEventListener("submit",(e)=>{
+        e.preventDefault();
+        submit();
+        })
+
+        const submit=()=>{
+            // let f_name = document.getElementById("f_name").value;
+            // let l_name = document.getElementById("l_name").value;
+            // let mail = document.getElementById("email").value;
+            // let age = document.getElementById("age").value;
+            // let dob = document.getElementById("dob").value;
+            // let place = document.getElementById("places").value;
+            // let payment= document.getElementById("payment").value;
+            // let travel=document.getElementById("travel").value;
+
+        var newRow=table.insertRow('1');
+
+        (newRow.insertCell(0)).innerHTML=document.forms.u_form.f_name.value;
+        (newRow.insertCell(1)).innerHTML=document.forms.u_form.l_name.value;
+        (newRow.insertCell(2)).innerHTML=document.forms.u_form.email.value;
+        (newRow.insertCell(3)).innerHTML=document.forms.u_form.age.value;
+        (newRow.insertCell(4)).innerHTML=document.forms.u_form.dob.value;
+        (newRow.insertCell(5)).innerHTML=document.forms.u_form.place.value;
+        (newRow.insertCell(6)).innerHTML=document.forms.u_form.payment.value;
+        (newRow.insertCell(7)).innerHTML=document.forms.u_form.travel.value;
+        form.reset(); 
+        }
+    </script>
+
+</body>
+</html>

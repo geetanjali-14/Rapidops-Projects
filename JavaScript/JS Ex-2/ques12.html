@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        let N=prompt("enter length for chopping: ")
+
+        let string=prompt("enter string")
+
+        let i=0
+        let j=+N;       //Converting n to number
+
+        let arr=[]
+
+        let size=Math.ceil(string.length/N);        //Using ceil value to string's length/N as size of new array 
+
+        function string_chop(string,N){
+
+        for(let k=0;k<size;k++){
+
+            arr[k]=string.slice(i,j)                //slicing array's elements from i index to j index (j-1 th element)
+
+            i+=(+N);                                //chopping i by Nth value
+
+            j+=(+N)                                 //chopping j by Nth value
+
+        }
+        return arr;
+        }
+        document.write(string_chop(string,N));
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

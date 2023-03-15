@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>form 3</title>
+</head>
+<style>
+    #form3{
+        align-items: center;
+        background-color: rgb(246, 255, 255);
+        font-weight: bolder;
+        font-size: larger;
+        margin-top:50px ;
+    }
+    #btn{
+        font-size: large;
+        font-weight: bolder;
+
+    }
+</style>
+<body>
+    <form name="form3" id="form3">
+        Country: <select name="country" id="country">
+          <option value="" selected="selected">Select Country</option>
+        </select>
+        <br><br>
+        State: <select name="state" id="state">
+          <option value="" selected="selected">Please select Country first</option>
+        </select>
+        <br><br>
+        City: <select name="city" id="city">
+          <option value="" selected="selected">Please select state first</option>
+        </select>
+        <br><br>
+        <input type="submit" value="Submit"id="btn">
+      </form>
+
+
+
+
+    <script>
+        var Countryobj = {
+        "India": {
+        "Rajasthan": ["Jaipur", "Udaipur", "Jodhpur", "Ajmer","Kota"],
+        "Karnataka": ["Banglore", "Mysore", "Manglore", "Raichur"],
+        "Punjab": ["Amritsar", "Ludhiana", "Patiala", "Jalandhar"],
+        "Gujarat":["Ahmadabad","Bhuj","Rajkot","Surat"]
+    },
+        "USA": {
+            "California": ["Berkeley", "Carmel", "Daly City","Oakland"],
+            "Mississippi": ["Columbia", "Greenwood", "Oxford","Tupelo"],
+            "New York":["Amsterdam","Clinton"," Fredonia","Southampton"]
+
+            },
+        "France": {
+            "Brittany":["Vannes","Rennes","Lorient " ],
+            "Corsica":["Ajaccio"," Bastia","Calvi"],
+            "Grand Est":["Strasbourg","Troyes","Colmar"]
+        }
+}
+    window.onload = function() {
+    var country = document.getElementById("country");
+    var state = document.getElementById("state");
+    var city = document.getElementById("city");
+    for (var x in Countryobj) {
+        country.options[country.options.length] = new Option(x, x);
+    }
+    country.onchange = function() {
+        state.length = 1;
+        city.length = 1;
+        for (var y in Countryobj[this.value]) {
+        state.options[state.options.length] = new Option(y, y);
+        }
+    }
+    country.onchange();
+
+    state.onchange = function() {
+        city.length = 1;
+        var z = Countryobj[country.value][this.value];
+        for (var i = 0; i < z.length; i++) {
+        city.options[city.options.length] = new Option(z[i], z[i]);
+        }
+    }
+    }
+
+    </script>
+</body>
+</html>

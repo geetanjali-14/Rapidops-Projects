@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<head>
+    <title>Task 4</title>
+    <style>
+        *{
+            margin:10px;
+        }
+        .section{
+            display: inline-flex;
+            justify-content: space-around;
+        }
+        table, th {
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding:10px 65px;
+            
+        }   
+        
+        td{
+            text-align: center;
+            padding:0px 65px;
+        }
+        button, .submitbtn{
+            color:#0065e9;  
+            padding:9px 25px;
+            cursor:pointer;
+            font-size: 16px ;
+            font-weight: bold;
+            border-color:#1c7fff;  
+            background-color: rgb(196, 243, 255);
+        }
+        button:hover, .submitbtn:hover
+        {
+            color:black;
+        }
+        input{
+            padding:10px;
+        }
+        .onEdit
+        {
+            background-color:rgb(115, 192, 0);
+            border:2px rgb(80, 177, 0) solid;
+            color: rgb(255, 255, 255);
+        }
+        .onDelete{
+            background-color: rgb(255, 60, 60);
+            border:2px rgb(167, 61, 0) solid;
+            color: rgb(255, 255, 255);
+        }
+    </style> 
+</head>
+<body>
+    <form  id="form" autocomplete="off">
+        <input type="text" id="fname" name="fname" placeholder="First Name" required>
+        <input type="text" id="lname" name='lname' placeholder="Last Name" required>
+        <input type="submit" value=" + Add" class="submitbtn">
+    </form>
+    <div class="section">
+        <h4><input type="checkbox" id="main_select" name="main_select" onchange="select_check(this)">Select All</h4>
+        <button class="onDelete" onclick="delete_all()">Delete</button>
+    </div>
+    <div class="section">
+    <h4 >Rows selected: </h4>
+    <h4 id="count"></h4>
+    </div>
+    <table class="u_data" id="data" border="2">
+        <th>Select Here</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Actions</th>
+    </table>
+
+
+    <script >
+            
+        let form=document.getElementById("form");
+        let table=document.getElementById('data');
+        let selectedRow = null
+        form.addEventListener("submit",(e)=>{
+         e.preventDefault();
+            if (selectedRow == null)
+                insertNewRecord();
+            else
+                updateRecord();
+            resetForm();
+        })
+        const insertNewRecord=()=>{
+            let f_name=document.getElementById('fname').value;
+            let l_name=document.getElementById('lname').value;
+            let newRow=table.insertRow('1');
+            (newRow.insertCell(0)).innerHTML=`<input type="checkbox" name="select" onchange="del(this);onCheck(this)" >`;
+            (newRow.insertCell(1)).innerHTML=f_name;
+            (newRow.insertCell(2)).innerHTML=l_name;
+            (newRow.insertCell(3)).innerHTML=`<button onClick="onEdit(this)" class="onEdit">Edit</button> <button class="onDelete" onClick="onDelete(this)" id="del" disabled>Delete</button>`;
+        }
+
+        function onDelete(ele)
+        {
+            let row=ele.parentElement.parentElement;
+                document.getElementById('data').deleteRow(row.rowIndex);
+                resetForm();
+        }
+        function resetForm()
+        {
+            document.getElementById('fname').value='';
+            document.getElementById('lname').value='';
+        }
+       
+       function onEdit(ele)
+       {
+        selectedRow=ele.parentElement.parentElement;
+        document.getElementById("fname").value = selectedRow.cells[1].innerHTML;
+        document.getElementById("lname").value = selectedRow.cells[2].innerHTML;
+       } 
+
+       function updateRecord()
+       {
+        selectedRow.cells[1].innerHTML=document.getElementById('fname').value;
+        selectedRow.cells[2].innerHTML=document.getElementById('lname').value;
+       }
+
+       function del(ele)
+       {
+            ele=ele.parentElement.parentElement.cells[3];
+            ele=ele.firstChild.nextElementSibling;
+            if(ele.disabled==false)
+                ele.disabled=true;
+            else
+                ele.disabled=false;    
+       }
+
+       function select_check(box)
+       {
+        let count=0;
+        let checkboxes = document.getElementsByName('select');
+         if (box.checked) {
+            for (var i = 0; i < checkboxes.length; i++) {
+                if (checkboxes[i].type == 'checkbox') {
+                  checkboxes[i].checked = true;
+               }
+               count++;
+             }
+        } else {
+           for (let i = 0; i < checkboxes.length; i++) {
+               if (checkboxes[i].type == 'checkbox') {
+                  checkboxes[i].checked = false;
+             }
+           }
+         }
+         document.getElementById('count').innerText=+count;
+        }
+
+
+    function delete_all()
+    {
+        let table=document.getElementById('data');
+        for (let i in table.childNodes){
+        let ele=document.getElementsByName('select');
+        for(let j in ele)
+        {
+            if(ele[j].type=='checkbox')
+            {
+                if(ele[j].checked==true)
+                {
+                    onDelete(ele[j]);
+                }
+            }
+        }
+        }
+        document.getElementById('main_select').checked=false;
+    } 
+    
+    function onCheck()
+    {
+        let count=0;
+        let checkboxes = document.getElementsByName('select');
+        console.log(checkboxes)
+            for (let i = 0; i < checkboxes.length; i++) {
+                if (checkboxes[i].type == 'checkbox'&& (checkboxes[i].checked == true))
+                count++;
+                else
+                count--;
+                }
+           
+        if(count==checkboxes.length)
+         {
+            document.getElementById('main_select').checked=true;
+         }
+         else
+         {
+            document.getElementById('main_select').checked=false;
+         }
+        document.getElementById('count').innerText=count;
+    }   
+    </script>
+</body>
+</html>

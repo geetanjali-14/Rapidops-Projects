@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Login</title>
+</head>
+<body>
+    <div class="container" id="login-data">
+        <h1>Login</h1>
+        <div class="data" >
+            <label for="admin"> Admin</label>
+            <input type="radio" id='admin' value="Admin" name='user_type'>
+
+            <label for="student" style="margin-left:40px;"> Student</label>
+            <input type="radio" id='student' value="Student" name='user_type'>
+        </div>
+        <div class="data">
+        <label for="username"> Username :</label>
+        <input type="text" id="username" placeholder="Username">
+    </div>
+    <div class="data">
+        <label for="pwd">Password :</label>
+        <input type="password" id='pwd' placeholder="Enter Password">
+    </div>
+    <button class="btn" type="submit" id="submit-btn2" >Submit</button>
+    <a href="signup.html" ><button class="btn1" >Sign-up</button></a>
+    </div>     
+</div>
+    <script >
+        
+        document.getElementById('submit-btn2').addEventListener('click',function(e)
+        {
+            let key,temp,t;
+            let u_name=document.getElementById('username').value;
+            //console.log(u_name)
+            let pwd=document.getElementById('pwd').value;
+            //console.log(pwd)
+            let user_type;
+            let ele=document.getElementsByName('user_type');
+            for(let i=0;i<ele.length;i++)
+            {
+                if(ele[i].checked)
+                {
+                    user_type=ele[i].value;
+                }
+            }
+            if(!pwd||!user_type||!u_name)
+        {
+            alert("Fill all the fields");
+        }
+            //console.log(user_type)
+            for(let i=0;i<localStorage.length;i++)
+            {
+                temp=localStorage.getItem("Users");
+                //console.log(temp)
+                t=JSON.parse(temp);
+                //console.log(t)
+                t.forEach(element => 
+                {
+                if(u_name==element.Username)
+                {
+                    sessionStorage.setItem('username',u_name);
+                    if(pwd==element.Password)
+                    {
+                        sessionStorage.setItem('password',pwd);
+                        {
+                            
+                            if(user_type==element.User_Type && 'Admin'==user_type)
+                            {
+                                location.replace('./adminDashboard.html')
+                            }
+                            else if(user_type==element.User_Type && 'Student'==user_type)
+                            {
+                                location.replace('./studentDashboard.html')
+                            }
+                            else
+                            alert("Wrong user-type entered.")
+                        }
+                    }
+                    
+                }
+            } 
+                )
+            }
+        });  
+
+    </script>
+</body>
+</html>

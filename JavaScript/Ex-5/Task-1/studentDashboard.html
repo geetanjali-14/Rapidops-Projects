@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard</title>
+    <style>
+        *{
+            margin:10px;
+        }   
+        tr{
+            text-align: center;
+            border: 1px solid black;
+            font-size: 20px;
+        }
+        .nav
+        {display:flex ;
+        justify-content: space-between;
+        background-color: rgb(189, 224, 255);}
+        *{
+            margin:10px;
+        }
+        table, th {
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding:10px 65px;
+            
+        }   
+        td{
+            text-align: center;
+            padding:10px 65px;
+        }
+        button{
+            color:#0065e9;  
+            padding:9px 25px;
+            cursor:pointer;
+            font-size: 16px ;
+            font-weight: bold;
+            border-color:#1c7fff;  
+            background-color: rgb(196, 243, 255);
+        }
+    </style>
+</head>
+<body>
+    <nav id="nav" class="nav">
+        <div class="nav-left">
+          <span class="gradient skew"><h1>Student Dashboard</h1></span>
+        </div>
+        <div class="nav right">
+          <h1><span id="admin_name" onload="add()"></span></h1>
+          <a href="login.html"><button class="btn1" >Logout</button></a>
+        </div>
+      </nav>
+        <table id="data" border="2">
+            <th>Student Name</th>
+        </table>
+    <script>
+        function preventBack() 
+            {
+            window.history.forward();
+
+            }
+            setTimeout("preventBack()", 0);
+            window.onunload = function () { null };
+
+
+        let table_student=document.getElementById('data');
+        let course=localStorage.getItem('Assigned_course');
+        //console.log(course)
+        
+
+        window.addEventListener("load",(event)=>{
+                temp=localStorage.getItem('Users');
+                t=JSON.parse(temp);
+                t.forEach(element => 
+                {
+                            if('Student'==element.User_Type)
+                            {   let th=document.createElement('th');
+                                th.innerHTML="Course Name";
+                                // let row=table_student.firstElement
+                                // console.log(row)
+                                table_student.rows[0].appendChild(th)
+
+                                newRow=table_student.insertRow('1');
+                                newRow.insertCell(0).innerHTML=element.Name;
+                                temp1=localStorage.getItem(`${element.Name}`);
+                                //console.log(temp1)
+                                t1=JSON.parse(temp1)
+                                t1.forEach(ele=>
+                                {
+                                    newRow.insertCell(1).innerHTML=ele.course;
+                                })
+                            }
+                })
+            })
+
+                      
+    </script>
+</body>
+</html>

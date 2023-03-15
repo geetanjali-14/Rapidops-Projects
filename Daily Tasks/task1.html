@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matrix</title>
+</head>
+<body>
+    <script>
+        deg=+prompt("enter the degree")
+        deg=deg/90;
+        for(let i=0;i<deg;i++)
+        {
+            let matrix= [[0,0,0,0],
+                        [1,1,1,1],
+                        [2,2,2,2],
+                        [3,3,3,3],
+                        [4,4,4,4]];
+            for(let i=0;i<matrix.length;i++)
+            {
+                for(let j=i;j<matrix.length;j++)
+                {
+                    if(i!=j)
+                    {
+                        let temp=matrix[i][j];
+                        matrix[i][j]=matrix[j][i];
+                        matrix[j][i]=temp;
+                    }
+                    document.write(matrix[i][j])
+                }
+                document.write('\n');
+            }
+            //document.write(matrix);
+            let start=0;
+            let end=matrix.length-1;
+            for(let i=0;i<matrix.length;i++)
+            {
+                while(start<end)
+                {
+                    let temp=matrix[i][start];
+                    matrix[i][start]=matrix[i][end];
+                    matrix[i][end]=temp;
+                    end--;
+                    start++;
+                }
+                document.write(matrix[i][j])
+            }
+            document.write('\n');
+        }
+           
+    </script>
+</body>
+</html>

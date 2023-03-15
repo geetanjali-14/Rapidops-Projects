@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task-3</title>
+    <style>
+        .box
+        {
+            height: 150px;
+            width: 150px;
+            background-color: rgb(255, 245, 245);
+            color:black;
+            margin:20px;
+            display:inline-block;
+            /* padding: 10px 30px; */
+            vertical-align: middle;
+            border: 2px solid rgb(175, 175, 175);
+            text-align: center;
+        }
+        .container
+        {
+            align-items: center;   
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <button class="box" id="box3">3</button>
+        <button class="box" id="box1" onclick="clickBtn1()">1</button>
+    </div>
+    <div class="container">
+        <button class="box" id="box2">2</button>
+        <button class="box" id="box4">4</button>
+    </div>
+    <script>
+         alert("Start Suprise box.");
+        let box_1=document.getElementById("box1");
+        let box_2=document.getElementById("box2");
+        let box_4=document.getElementById("box4");
+        //console.log(box_1);
+        box_1.innerHTML+="<br>Click me First";
+
+        let colorlist_box2=['green','blue','red']
+        let colorlist_box4=['purple','orange','pink','yellow','grey'];
+        //index=0;
+        function changeColor(colorlist_box,time,box,index)
+        {
+            setInterval(
+                    ()=>{
+                    if(index<colorlist_box.length)
+                    {
+                        box.style.backgroundColor=colorlist_box[index];
+                        index++;
+                    }
+                    else
+                    {
+                        index=0;
+                        box.style.backgroundColor=colorlist_box[index];
+                        index++;
+                    }
+                    }
+                    ,time)
+        }
+        changeColor(colorlist_box2,3000,box2,0)
+        function clickBtn1()
+        {
+            box3=document.getElementById("box3");
+            box3.innerHTML+="<br>Opps Something went wrong ?"
+            changeColor(colorlist_box4,5000,box4,0)
+        }
+        document.addEventListener('keydown',(e)=>
+        {
+            // console.log(e)
+            let color=box_4.style.backgroundColor;
+            // console.log(color)
+            let indexOfColor=colorlist_box4.indexOf(color);
+            // console.log(indexOfColor)
+
+            //On left and Down arrow press, Move Backward
+            if(e.key=='ArrowLeft'|| e.key=="ArrowDown")
+            {
+                if(indexOfColor==0 ||indexOfColor==-1)
+                {
+                    indexOfColor=colorlist_box4.length-1;
+                }
+                else
+                {
+                    indexOfColor--;
+                }
+                box_4.style.backgroundColor=colorlist_box4[indexOfColor]; 
+            }
+
+            //On right and Up arrow press, Move Forward
+            else
+            {
+                if(indexOfColor==colorlist_box4.length-1)
+                    {
+                    indexOfColor=0;
+                    }
+                else
+                { 
+                    indexOfColor++;
+                }
+                box_4.style.backgroundColor=colorlist_box4[indexOfColor]; 
+            }
+            
+        })
+    </script>
+</body>
+</html>

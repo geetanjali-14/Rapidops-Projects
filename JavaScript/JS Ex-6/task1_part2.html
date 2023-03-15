@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const nodesOfTree = [{ _id: '0', tag: `node`, parent_id: null, domain_id: 'tree', description: 'This is description' }]; 
+
+const treeLevel = [];
+
+treeLevel[0] =1
+treeLevel[1] = prompt('Enter First level child node') 
+treeLevel[2] = prompt('Enter Second level child node')
+treeLevel[3] = prompt('Enter Third level child node')
+treeLevel[4] = prompt('Enter Fourth level child node')
+
+let max = treeLevel[0];
+
+ for (let i in treeLevel)
+  { 
+    for (let j = 0; j < treeLevel[i]; j++) 
+    { 
+        nodesOfTree.push({ _id: i + j, tag: 'node', parent_id: (i == 0) ? '0' : `${i - 1}${Math.floor(Math.random() * 10) % treeLevel[i - 1]}`, domain_id: 'tree', description: 'description' }); 
+    } 
+} 
+    console.log(nodesOfTree);
+
+     let valuesId="";
+
+     for(let i = 0; i<nodesOfTree.length; i++){
+         valuesId+=nodesOfTree[i]._id + "-";
+         }
+
+          let valuesParentId="";
+
+           for(let i = 0; i<nodesOfTree.length; i++){
+             valuesParentId+=nodesOfTree[i].parent_id + "-";
+             }
+
+              let NodeToBeChanged = prompt(`Enter node to be changed from: (${valuesId})`); 
+
+              let parentNode = prompt(`Enter new Parent node id: (${valuesParentId})`);
+
+               for(let i=0; i<nodesOfTree.length; i++){
+                 if(NodeToBeChanged == nodesOfTree[i]._id)
+                 {
+                    nodesOfTree[i].parent_id = parentNode;
+                    }
+           }
+    console.log(nodesOfTree);
+    </script>
+</body>
+</html>

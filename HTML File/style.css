@@ -1,0 +1,262 @@
+*{
+    margin:0;
+    padding:0;
+    font-family: Lora;
+}
+body{
+    margin: 10px;
+    padding: auto;
+}
+.main{
+    width:100%;
+    background-color: rgb(255, 255, 255);
+    background-position: center;
+    background-size: cover;
+    height:70vh;
+}
+.navbar{
+    width:1200px;
+    height:75px;
+    margin:auto;
+}
+.icon{
+    width:200px;
+    float: left;
+    height:70px;
+    
+}
+.logo{
+    color:rgb(78, 78, 78);
+    font-weight: 400;
+    padding-top: 40px;
+    padding-left:20px;
+}
+.subheading{
+    color:rgb(114, 114, 114);
+    font-weight: 400;
+    font-size: 12px;;
+    padding-left:20px;
+}
+.menu{
+    width:400px;
+    float:right;
+    height:70px;
+}
+.menu ul{
+    float: right;
+    display:flex;
+    justify-content: right;
+    align-items: right;
+}
+.menu ul li{
+    list-style: none;
+    margin-left: 62px;
+    margin-top: 27px;
+    font-size: 14px;
+}
+.menu ul li a {
+    text-decoration: none;
+    color: rgb(98, 98, 98);
+    font-weight:300;
+    font-size: 12px;
+    transition: 0.4s ease-in-out;
+}
+.menu ul li a:hover{
+    text-decoration: none;
+    color: #03a3a9;
+    font-weight:bold;
+}
+.content{
+    width:1200px;
+    height:auto;
+    margin:auto;
+    color:rgb(54, 54, 54);
+    position:relative;
+}
+.para{
+    width:60%;
+    font-size: 28px;
+    float:right;
+    height:70px;
+    margin-top:240px;
+}
+.pic{
+    margin-top:100px;
+    width:40%;
+    float: left;
+    height:40%;
+}
+.con{
+    color:rgb(122, 122, 122);
+    font-size: 16px;
+}
+.btn
+{
+    background-color: #03a3a9;
+    padding:5px;
+    border-radius: 10px;
+    color:white;
+    font-size: 18px;
+    margin-top:30px;
+}
+.img{
+    float:left;
+    width:25%;
+    height:20%px;
+}
+.card-1{
+    flex:1;
+    margin-left: 30px;
+    color: rgb(75, 75, 75);
+}
+.card-2{
+    flex:1;
+    color: rgb(75, 75, 75);
+    
+}
+.card-3{
+    flex:1;
+    color: rgb(75, 75, 75);
+    
+}
+.img1{
+    width:40vh;
+    height:20vh;
+}
+.divide{
+    display: flex;
+    margin-left: 40px;
+    margin-right: 40px;;
+}
+.divide div{
+padding: 100px;
+}
+.section-3
+{
+    text-align: center;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    color: rgb(83, 83, 83);
+}
+
+.cards-1{
+    /* flex:1; */
+    margin-left: 30px;
+    color: rgb(75, 75, 75);
+    align-items: inline;
+}
+.img2{
+    width:20vh;
+    height:20vh;
+    float :left;
+    padding-right:20px;
+}
+.divide-2{
+    display: flex;
+    margin-left: 30px;
+    margin-right: 30px;
+}
+.divide-2 div{
+padding: 40px;
+align-items: flex-start;
+}
+.cards-1 p h2{
+    float:right;
+}
+.cards-1 h3{
+    color:#03a3a9;
+}
+
+footer {
+  background-color: black;
+  color: white;
+  bottom: 0;
+  width: 100vw;
+  font-size: 16px;
+}
+footer * {
+  box-sizing: border-box;
+  border: none;
+  outline: none;
+}
+.row {
+  padding: 1em 1em;
+}
+.row.primary {
+  display: grid;
+  grid-template-columns: 3fr 2fr 2fr 2fr;
+  /* align-items: stretch; */
+}
+.column {
+  width: 100%;
+  /* display: flex;
+  flex-direction: column; */
+  padding: 0 2em;
+  min-height: 15em;
+}
+h3 {
+  width: 100%;
+  text-align: left;
+  color: white;
+  font-size: 1.4em;
+  white-space: nowrap;
+}
+.column-link ul {
+  list-style: none;
+  display: block;
+  flex-direction: column;
+  padding: 0;
+  margin: 0;
+}
+.column-link li:not(:first-child) {
+  margin-top: 0.8em;
+}
+.column-link ul li a {
+  color: #a7a7a7;
+  text-decoration: none;
+}
+.column-link ul li a:hover {
+  color: #c7940a;
+}
+.about p {
+  text-align: justify;
+  line-height: 2;
+  margin: 0;
+}
+input{
+  font-size: 1em;
+  padding: 1em;
+  width: 70%;
+  border-radius: 5px;
+  margin-bottom: 5px;
+  background-color: #25262e;
+  color: white;
+}
+.btn1{
+  font-size: 1em;
+  padding: 1em;
+  width: 50%;
+  border-radius: 5px;
+  margin-bottom: 5px;
+  background-color: #029ea9;
+  color: #ffffff;
+}
+.copyright {
+  padding: 0.3em 1em;
+  background-color: #25262e;
+}
+.footer-menu{
+  float: left;
+    margin-top: 10px;
+}
+.footer-menu a{
+  color: #cfd2d6;
+  padding: 6px;
+  text-decoration: none;
+}
+.footer-menu a:hover, .social i:hover{
+  color: #c7940a;
+}
+.copyright p {
+  font-size: 0.9em;
+  text-align: right;
+}

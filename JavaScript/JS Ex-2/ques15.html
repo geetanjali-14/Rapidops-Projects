@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        array = [  {name:  "Jack" , age : 23},
+        {name:  "Sam" , age : 12}, 
+        {name:  "Max" , age : 20} ]
+
+        let ans = prompt("Press 1 to delete and 2 to insert an element in array. ")
+        //To delete any element 
+        if(ans==1)
+        {
+            del_index=+prompt("Enter Index to delete:")
+            if(del_index>=0&& del_index<array.length)
+            {
+                array.splice(del_index,1);      //using splice operator for deleting an array element by giving 2nd argument as 1
+            }
+        }
+
+        //To insert any element
+        else if(ans==2)
+        {
+            insert_index=+prompt("Enter Index to insert:")
+            name=prompt("enter name to insert:")
+            age=prompt("Enter age to insert:")
+
+            if(insert_index>=0 && insert_index<=array.length)
+            {
+                array.splice(insert_index,0,{name,age});    //using splice operator for inserting an array element by giving 2nd argument as 0 and element values  at 3rd
+            }
+
+        }
+        else
+        console.log("Wrong input , Please try again.")
+        console.log(array);
+
+    </script>
+</head>
+<body>
+</body>
+</html>

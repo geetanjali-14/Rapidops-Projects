@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  </head>
+  <body>
+    <h1>Assigned Folders</h1>
+    <div>
+      <% folders.forEach(function(itr) { %>
+             <p><%=itr.folder_name%></p>
+             <a href="/delete/<%= itr.folder_id %>">delete</a><br>
+              <a href="/edit/<%= itr.folder_id%>">update</a>
+               <%})%>
+        </div>
+        <h1>Add new folder</h1>
+        <form action="/usersFolder%>" method="post">
+          <div>
+              Name <input type="text" name="folder_name" id="" >
+          </div>
+          <div>
+              <button type="submit">Submit</button>
+          </div>
+      </form>
+  </body>
+</html>

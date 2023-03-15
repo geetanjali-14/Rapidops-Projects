@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        let Months=['January','February','March','April','May','June','July','August','September','October','November','December'];
+        let dt=prompt("Enter the date");  //Enter in dd-mm-yyy format
+        dt=dt.split("-");       //Converting "-" separated string in array to convert it into date
+        let temp=dt[0];
+        dt[0]=dt[1];            // Swapping day with Month to convert string in javascript date format(mm-dd-yyyy)
+        dt[1]=temp;
+
+        dt= dt.join("-");       //Joining date(array) separated by '-' to string format
+        let d=new Date(dt);     //JavaScript Date function
+        document.write("Month : ",Months[d.getMonth()])   //Getting Month of our given date from Month Array
+    </script>
+</head>
+<body>
+</body>
+</html>

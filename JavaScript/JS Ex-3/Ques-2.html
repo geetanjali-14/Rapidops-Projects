@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task-1 Ques-2</title>
+    <script>
+        let e_mail=prompt("Enter an email tpo validate: ","abc@gmail.com")
+        const regex_exp=/^[a-zA-Z0-9_\-\.\!]+[@][a-z]+[.][a-z]{2,3}$/
+        if(regex_exp.test(e_mail))
+        {
+            let str=e_mail.split("@");
+            let part1=str[0];
+            let part2=str[1];
+            let n=(part1.length)/2;
+            let hidden_mail=(part1.slice(0,n)+("*".repeat([n]))+'@'+part2);
+            document.write(hidden_mail);
+        }
+        else
+        {
+            document.write(e_mail," is not valid. email")
+        }
+        
+    </script>
+</head>
+<body>   
+</body>
+</html>

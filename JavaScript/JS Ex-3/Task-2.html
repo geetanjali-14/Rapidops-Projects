@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task-2 </title>
+    <script>
+        arr=
+        [{
+            Name:'Ravindra',
+            Sports:['Chess','Cricket'],
+            },
+
+            {
+            Name:'Ravi',
+            Sports:['Cricket','Football'],
+            },
+
+            {
+            Name:'Rishabh',
+            Sports:['Table-Tennis','Football'],
+            }
+        ]
+            let s=new Set();
+            let n=arr.length;
+            for(let i=0;i<n;i++)
+            {
+                let l=arr[i].Sports.length;
+                for (let j=0;j<l;j++)
+                {
+                    s.add(arr[i].Sports[j])
+                }
+            }
+            console.log(s);
+            let final_arr=[]
+            {
+                for (let val of s)
+                {
+                    const obj={};
+                    const arr1=[];
+                    for (let j of arr)
+                    {
+                        if(j.Sports.includes(val))
+                        {
+                            arr1.push(j.Name);
+                        }
+                        obj[val]=arr1;
+                    }
+                    final_arr.push(obj);
+                }
+                
+            }
+            console.log(final_arr);
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

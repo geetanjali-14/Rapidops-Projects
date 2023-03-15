@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        let dt1 = new Date("2020-05-11");
+        let dt2 = new Date("2018-07-14");
+
+        let year1 = dt1.getFullYear();
+        let year2 = dt2.getFullYear();
+
+        let month1 = dt1.getMonth();
+        let month2 = dt2.getMonth();
+
+        let days1 = dt1.getDate();
+        let days2 = dt2.getDate();
+
+        if (month1 - month2 < 0) {
+            year1 = year1 - 1;
+            month1 = month1 + 12;
+        }
+        if (days1 - days2 < 0) {
+            month1 = month1 -1;
+            days1 = days1 + 30;
+        }
+
+        document.write(`${year1 - year2} years ,  ${month1 - month2}  months , ${days1 - days2} days`);
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

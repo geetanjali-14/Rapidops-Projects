@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        let UNIX_timestamp=1607518718;
+        var a= new Date(UNIX_timestamp*1000);
+        let d=['sun','mon','tue','wed','thu','fri','sat'];
+        var months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+        var year=a.getFullYear();
+        var day=d[a.getDay()];
+        var month=months[a.getMonth()];
+        var date=a.getDate();
+        var hour=a.getHours();
+        var min=a.getMinutes();
+        var sec=a.getSeconds();
+        var time=day+' '+month+' '+year+' '+hour+':'+min+':'+sec
+        document.write(time)
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

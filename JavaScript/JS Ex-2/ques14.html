@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+
+        // Array of 10 objects (Elements)
+        let arr=[
+    {
+        id:1,
+        name:"ayushi",
+        age:21
+    },
+
+    {
+        id:6,
+        name:"deepu",
+        age:2
+    },
+
+    {
+        id:0,
+        name:"karuna",
+        age:19
+    },
+
+    {
+        id:9,
+        name:"sangmitra",
+        age:9
+    },
+
+    {
+        id:11,
+        name:"mansi",
+        age:6
+    },
+    {
+        id:3,
+        name:"babita",
+        age:22
+    },
+    {
+        id:1,
+        name:"toshi",
+        age:21
+    },
+    {
+        id:98,
+        name:"esha",
+        age:100
+    },
+    {
+        id:3,
+        name:"pooja",
+        age:51
+    },
+    {
+        id:10,
+        name:"charu",
+        age:45
+    },
+]
+//Sorting in ascending order wrt age  
+let age_sort=arr.sort((a,b) => (a.age-b.age));
+console.log(age_sort);
+// let age_sort=arr.sort((a,b) => (a.age > b.age)? 1 : (a.age < b.age) ? -1 : 0);
+// console.log(age_sort);
+
+
+
+
+// Sorting in descending order according to names 
+// Comment out for name's sorting
+
+// let name_sort = arr.sort((a,b) => (a.name < b.name) ? 1 : (a.name > b.name) ? -1 : 0);
+// console.log(name_sort);
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

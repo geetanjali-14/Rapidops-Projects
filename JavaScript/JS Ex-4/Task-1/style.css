@@ -1,0 +1,81 @@
+*{
+    margin:10px;
+    background-color: rgb(237, 237, 237);
+}
+/*Date and Time Section*/
+.upper-div{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.time 
+{
+    font-size: 20px;
+    font-weight: bold;
+    width: 15%;
+    margin-bottom: 5px;
+    color: #000000;
+    padding:7px 50px 7px 50px;
+    text-align: center;
+    background-color: #d8d8d8;
+    border: 1px solid rgb(169, 169, 169);
+}
+.date{
+    font-size: 20px;
+    font-weight: bold;
+    width: 15%;
+    margin-bottom: 5px;
+    padding:7px 50px 7px 50px;
+    color: #000000;
+    text-align: center;
+    background-color: #d8d8d8;
+    border: 1px solid rgb(169, 169, 169);
+}
+/*Stop-Watch section*/
+.watch{
+    margin:auto;
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+    padding:40px;
+}
+.txt
+{
+    font-size: 20px;
+}
+/*Control Buttons*/
+.btn-div
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.btn
+{
+    border: none;
+    padding:7px 30px 7px 30px;
+    color:white;
+    border-radius: 10px;
+    font-size: 18px;
+    margin-top:30px;
+    font-weight: bold;
+    cursor: pointer;
+}
+/* .btn:hover
+{
+    background-color: rgba(0, 210, 213, 0.798);
+    color:black
+} */
+.start{
+    background-color: green;
+}
+.stop{
+    background-color: red;
+}
+.resume{
+    background-color: rgb(255, 241, 41);
+    color:black
+}
+.reset{
+    background-color: orange;
+}

@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="stylesheet" href="style.css"> -->
+    <title>Admin</title>
+    <!-- <link rel="stylesheet" href="style.css"> -->
+<style>
+        *{
+            margin:10px;
+        }
+        table, th {
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding:10px 65px;
+            
+        }   
+        td{
+            text-align: center;
+            padding:0px 65px;
+        }
+        button, .submitbtn{
+            color:#000000;  
+            padding:9px 25px;
+            cursor:pointer;
+            font-size: 16px ;
+            font-weight: bold;
+            border-color:#1c7fff;  
+            background-color: rgb(196, 243, 255);
+        }
+        button:hover, .submitbtn:hover
+        {
+            color:black;
+        }
+        input{
+            padding:10px;
+        }
+        .onDelete{
+            background-color: rgb(255, 60, 60);
+            border:2px rgb(167, 61, 0) solid;
+            color: rgb(255, 255, 255);
+        }
+        .nav
+        {display:flex ;
+        justify-content: space-between;
+        background-color: rgb(189, 224, 255);}
+</style>
+</head>
+<body>
+
+     <!-- navigation Starts -->
+        <nav id="nav" class="nav">
+          <div class="nav-left">
+            <span class="gradient skew"><h1>Admin Dashboard</h1></span>
+          </div>
+          <div class="nav right">
+            <a href="Studentlist.html" target="_blank"><span><h1>Students</h1></span></a>
+            <h1><span id="admin_name" onload="add()"></span></h1>
+            <a href="login.html"><button class="btn1" >Logout</button></a>
+          </div>
+        </nav>
+
+        <!-- navigation ends -->
+
+        <!-- Add courses here -->
+        <form  id="form" autocomplete="off">
+            <input type="text" id="c_name" name="c_name" placeholder="Enter Course Name" required>
+            <button type="submit" class="submitbtn"> + Add Course</button>
+        </form>
+         <!-- Add courses Ends here -->
+
+         <!-- Displays added courses here -->
+    <table border="2" id="course_n" name="course">
+            <tr>
+                <th>Course List</th>
+                <th>Remove Course</th>
+            </tr>
+        </table>
+
+        <!-- Table to assign course to students -->
+        <table border="2" id="Student_table">
+            <tr>
+                <th>Student Name</th>
+                <th>Courses</th>
+            </tr>
+        </table>
+    <script>
+
+
+      
+       
+        // function to prevent page going back
+
+        function preventBack() 
+            {
+            window.history.forward();
+
+            }
+            setTimeout("preventBack()", 0);
+            window.onload = function () { null };
+
+        let form=document.getElementById('form');
+        let table_course=document.getElementById('course_n');
+
+        // LocalStorage
+        let assigned_course = JSON.parse(localStorage.getItem('Assigned_course')) || [];
+
+        //Adding new courses
+        form.addEventListener('submit',(e)=>{
+            e.preventDefault()
+            let c_name=document.getElementById('c_name').value
+            {
+                newRow=table_course.insertRow('1');
+                newRow.insertCell(0).innerHTML=c_name;
+                newRow.insertCell(1).innerHTML=`<button type="submit" class="onDelete" onclick="remove_course(this)"> Remove</button>`
+                let obj={ Course_Name : c_name }
+                assigned_course.push(obj)
+                localStorage.setItem('Assigned_course', JSON.stringify(assigned_course));
+                form.reset();
+            
+            }
+            
+        })
+
+        // //Preventing duplicates to add
+        // function removeDuplicacy(course_name)
+        // {
+        //     temp1=localStorage.getItem('Assigned_course');
+        //         t1=JSON.parse(temp1);
+        //         t1.forEach(ele=>
+        //                 {
+        //                     console.log((ele.Course_Name.toLowerCase()),(course_name.toLowerCase()))
+        //                     if((ele.Course_Name.toLowerCase())==(course_name.toLowerCase()))
+        //                     {
+        //                         alert("Course already present.")
+        //                         return false
+        //                         //form.reset(); 
+        //                     }
+        //                 })
+        //     return true;
+        // }
+
+        // function to display assigned courses.
+        window.addEventListener("load", (event) => {
+                let temp=localStorage.getItem('Assigned_course');
+                let t=JSON.parse(temp);
+                for(let i=0;i<t.length;i++)
+                {
+                    let newRow=table_course.insertRow('1');
+                    newRow.insertCell(0).innerHTML=t[i].Course_Name;
+                    newRow.insertCell(1).innerHTML=`<button type="submit" class="onDelete" onclick="remove_course(this)"> Remove</button>`
+                }
+            }
+        );
+
+        // Remove Course
+        function remove_course(ele)
+        {
+            let row=ele.parentElement.parentElement;
+
+            // Delete course from table
+            if(confirm('Do you want to delete Row ?')){
+                document.getElementById('course_n').deleteRow(row.rowIndex);
+            }
+
+            // Delete course from localStorage
+                let temp=localStorage.getItem('Assigned_course');
+                let t=JSON.parse(temp);
+                for(let i=0;i<t.length;i++)
+                {
+                    let elem=ele.parentElement.previousElementSibling.innerHTML;
+                    if(elem==t[i].Course_Name){
+                        t.splice(i,1)
+                        localStorage.setItem('Assigned_course',JSON.stringify(t));
+                    }
+                    }
+        }
+
+// To display student list with courses to assign
+        table_student=document.getElementById("Student_table");
+
+        window.addEventListener("load",(event)=>{
+                temp=localStorage.getItem('Users');
+                t=JSON.parse(temp);
+                temp1=localStorage.getItem('Assigned_course');
+                t1=JSON.parse(temp1);
+                //console.log(t1)
+                t.forEach(element => 
+                {
+                            if('Student'==element.User_Type)
+                            {
+                                newRow1=table_student.insertRow('1');
+                                newRow1.insertCell(0).innerHTML=element.Name;
+                                let course_cell=newRow1.insertCell(1)
+                                t1.forEach(ele=>
+                                {
+                                    var button = document.createElement('button');
+                                    button.type = 'button';
+                                    button.value=ele.Course_Name;
+                                    button.innerHTML = ele.Course_Name;
+                                    button.id ='add_course';
+                                    course_cell.appendChild(button);
+                                    button.onclick=addCourseToStudent;
+                                })
+                            }
+                })
+        })
+
+
+
+        // To add and remove courses from student's name
+        function addCourseToStudent()
+        {
+           
+            //let btn=document.getElementById('add_course');
+            c_name=this.value;
+            let ele=this.parentElement.parentElement.firstElementChild.innerHTML;
+            let row=(this.parentElement.parentElement);
+            let student_name = JSON.parse(localStorage.getItem(`${ele}`)) || [];
+            //console.log(student_name)
+            if(student_name.length==0)
+            {
+                this.style.backgroundColor='red';
+                console.log('added once')
+                let obj={course:c_name}
+                student_name.push(obj);
+                localStorage.setItem(`${ele}`,JSON.stringify(student_name));
+            }
+            else{
+                student_name.forEach(element => 
+                {
+                   //Element is lready present in the localStorage
+                     if(c_name==element.course)
+                        {   console.log('deassigned')
+                        this.style.backgroundColor=' rgb(196, 243, 255)';
+                            if(confirm('Do you want to De-assign course ?')){
+                            // De-assign course for Student from LocalStorage
+                                student_name.splice(element,1);
+                                    localStorage.setItem(`${ele}`,JSON.stringify(student_name));
+                                    }
+                        }
+                            
+            //Element is not in the localStorage
+                        else if(c_name!=element.course)
+                        {
+                            console.log('assigned')
+                            this.style.backgroundColor='red';
+                            let obj={course:c_name}
+                            student_name.push(obj);
+                            localStorage.setItem(`${ele}`,JSON.stringify(student_name));    
+                        }
+            })
+        }
+    }
+    </script>
+</body>
+</html>

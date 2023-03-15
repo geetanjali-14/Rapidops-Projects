@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>String Task</title>
+</head>
+<body>
+    <script>
+      let str="ABcdefgF D@#%^&FEFhij kl9m3fg6!@#$%^4nop4FDFDF6qr66fDFDSF7stu!@#vw%$xyz";
+      str=str.toLowerCase();
+      //console.log(str);
+      str=(str.split('')).sort();
+      let new_str='';
+      for(let i in str)
+      {
+        if(str[i]>="a" && str[i]<="z")
+        new_str+=str[i];
+      }
+      //console.log(new_str)
+        let set= new Set(new_str);
+        console.log(set);
+        if((set.size)!=26)
+            document.write("All alphabets are not present in the string.");
+        else
+            document.write("All alphabets are present in the string.");
+
+    </script>
+</body>
+</html>

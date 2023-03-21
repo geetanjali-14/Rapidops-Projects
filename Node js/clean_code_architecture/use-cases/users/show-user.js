@@ -4,12 +4,12 @@ module.exports = function makeCreateUserUseCase({
     return async function showUserUsecase({}) {
         try{
             const users=await usersDb.showUser({});
-            console.log("show user under use case")
+            console.info("show user under use case")
             return users;
         }
         catch(err)
         {
-            console.log(err);
+            console.error(err);
             throw err;
         }
     };

@@ -13,7 +13,7 @@ module.exports = function makeGetUserByIdController({
             const ans=await userExists({id});
             console.log(ans);
 
-            if(ans==1)
+            if(ans)
             {
                 const [result]=await getUserById({id});
                 console.log([result]);
@@ -35,7 +35,7 @@ module.exports = function makeGetUserByIdController({
         {
             res.status(500).json({
                 status:'Error',
-                messege:'Error'+err
+                messege:err.message
             })
         }
         }

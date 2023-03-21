@@ -1,7 +1,7 @@
 module.exports = function makeDeleteUserController({
     Joi,
     deleteUser,
-    userExists
+    userExists,
 }) {
     return async function deleteUserController(req, res){
 
@@ -14,13 +14,15 @@ module.exports = function makeDeleteUserController({
             const ans=await userExists({id});
             console.log(ans);
 
-            if(ans==1)
+            if(ans)
             {
-                await deleteUser({id});
+                const deleteduserDetails= await deleteUser({id});
                 res.status(201).json({
                     status:'Success',
                     messege:'User Deleted'
                 })
+                console.log(deleteduserDetails);
+                return (deleteduserDetails);
             }
             else
             {
@@ -35,7 +37,7 @@ module.exports = function makeDeleteUserController({
         {
             res.status(500).json({
                 status:'Error',
-                messege:'Error'+err
+                messege:err.message
             })
         }
     }
@@ -48,7 +50,7 @@ module.exports = function makeDeleteUserController({
             if(error)
             {
                 console.log(error);
-                throw error.details[0].message;
+                throw new Error(`${error.details[0].message}`);
             }
         }
 }

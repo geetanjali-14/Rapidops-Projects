@@ -6,32 +6,34 @@ const makeDeleteUserUseCase=require('./delete-user');
 const makeUpdateUserUseCase=require('./update-user');
 const makeGetUserByIdUseCase=require('./get-user-by-id');
 const makeFindIdUserUseCase=require('./find-id');
-const makeDefaultFolderUseCase=require('./default-folders');
 const makeUserExistUseCase = require('./user-exists');
 
 const userExists = makeUserExistUseCase({
-    usersDb: dataAccess.users
+    usersDb: dataAccess.users,
+    Joi
 })
 const createUser = makeCreateUserUseCase({
-    usersDb: dataAccess.users
+    Joi,
+    usersDb: dataAccess.users,
 });
 const showUser = makeShowUserUseCase({
     usersDb: dataAccess.users
 });
 const deleteUser = makeDeleteUserUseCase({
-    usersDb: dataAccess.users
+    Joi,
+    usersDb: dataAccess.users,
 });
 const updateUser = makeUpdateUserUseCase({
-    usersDb: dataAccess.users
+    Joi,
+    usersDb: dataAccess.users,
 });
 const getUserById = makeGetUserByIdUseCase({
-    usersDb: dataAccess.users
+    usersDb: dataAccess.users,
+    Joi
 });
 const findId = makeFindIdUserUseCase({
-    usersDb: dataAccess.users
-});
-const defaultFolders = makeDefaultFolderUseCase({
-    usersDb: dataAccess.users
+    usersDb: dataAccess.users,
+    Joi,
 });
 module.exports = Object.freeze({
     createUser,
@@ -40,6 +42,5 @@ module.exports = Object.freeze({
     updateUser,
     getUserById,
     findId,
-    defaultFolders,
     userExists,
 });

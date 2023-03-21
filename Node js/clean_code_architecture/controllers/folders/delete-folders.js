@@ -1,19 +1,19 @@
 module.exports = function makeDeleteFolderController({
   Joi,
   deleteFolder,
-  folderExists,
+  folderExistsByFolderId
 }) {
   return async function deleteFolderController(req, res) {
-    console.info(`In delete folder controller`, req.params);
+    console.info(`In delete folder controller`);
     try {
       validInput(req.params);
-      const id = req.params.id;
+      const folder_id = req.params.id;
 
-      const ans = await folderExists({ id });
-      console.log(ans);
+      const ans = await folderExistsByFolderId({ folder_id });
+      // console.log(ans);
 
-      if (ans == 1) {
-        await deleteFolder({ id });
+      if (ans) {
+        await deleteFolder({ folder_id });
         res.status(201).json({
           status: "Success",
           messege: "Folder Deleted",
@@ -22,13 +22,13 @@ module.exports = function makeDeleteFolderController({
         console.log("folder dosen't Exists");
         res.status(201).json({
           status: "Success",
-          messege: "folder not exists",
+          messege: "folder of this ID dosen't exists",
         });
       }
     } catch (err) {
       res.status(500).json({
         status: "Error",
-        messege: "Error " + err,
+        messege: err.message,
       });
     }
   };

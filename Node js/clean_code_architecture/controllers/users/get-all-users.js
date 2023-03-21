@@ -1,5 +1,4 @@
 module.exports = function makeShowUserController({
-    Joi,
     showUser,
 }) {
     return async function showUserController(req, res){
@@ -15,7 +14,7 @@ module.exports = function makeShowUserController({
         {
             res.status(500).json({
                 status:'Error',
-                messege:'Error'+err
+                messege:err.message
             })
         }
     }

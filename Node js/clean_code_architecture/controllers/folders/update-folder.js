@@ -15,7 +15,7 @@ module.exports = function makeUpdateFolderController({
 
       const ans = await folderExists({ user_id, name });
       console.log(ans);
-      if (ans !== 0) {
+      if (ans) {
         console.log("Folder Already Exist");
         res.send("Folder Already Exist");
       } else {
@@ -28,10 +28,11 @@ module.exports = function makeUpdateFolderController({
     } catch (err) {
       res.status(500).json({
         status: "Error",
-        messege: "Error " + err,
+        messege:  err.message,
       });
     }
   };
+  
   function validBodyInput(body) {
     const schema = Joi.object().keys({
       user_id: Joi.number().integer().required(),

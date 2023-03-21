@@ -8,64 +8,73 @@ function makeFolderDbMethods({connection}){
         getFolderById,
         createFolder,
         folderExists,
+        defaultFolders,
+        folderExistsByFolderId,
     })
     
-    async function folderExists({user_id,name}){
+    async function defaultFolders({id}){
+        console.log("Inside default folder data-access");
+        const folders = ['inbox','outbox','trash','archieve','trash'];
+          {
+        for(let i in folders){
+            const [result] = await connection.query(
+                `insert into Folder (user_id,name) values (?,?)`,[id,folders[i]]
+            );
+            return result;
+        }
+    }
+    }
+
+    async function folderExists({id,name}){
         console.log("Folder existence check");
-        try{
-            const [result]=await connection.query(`select count (*) as row from ${folder_table} where user_id=? and name=?`,[user_id,name]);
+          {
+            // console.log(user_id,name);
+            const [result]=await connection.query(`select count (*) as row from ${folder_table} where folder_id=? and name=?`,[id,name]);
             console.log(result[0].row);
             return (result[0].row);
         }
-        catch(err)
-        {
-            throw err;
-        }
+       
     }    
-    async function createFolder({id,name}){
+    async function folderExistsByFolderId({folder_id}){
+        console.log("Folder existence check by Folder_ID");
+          {
+            console.log(folder_id);
+            const [result]=await connection.query(`select count (*) as row from ${folder_table} where folder_id=?`,[folder_id]);
+            console.log(result[0].row);
+            return (result[0].row);
+        }
+         }    
+    async function createFolder({user_id,name}){
         console.log("Create folder data access");
-        try{
-            await connection.query(`INSERT INTO ${folder_table} (name,folder_id) VALUES (?,?);`, [name,id]);
+          {
+            const [result]=await connection.query(`INSERT INTO ${folder_table} (name,user_id) VALUES (?,?);`, [name,user_id]);
             console.log("Folder Created");
+            return result.affectedRows;
         }
-        catch(err)
-        {
-            throw err;
-        }
-    }    
+        }    
     async function getFolderById({id}){
-        try{
-            const [result] = await connection.query(`select name from ${folder_table} where user_id=? ;`,[id]);
+          {
+            const [result] = await connection.query(`select * from ${folder_table} where user_id=? ;`,[id]);
             console.log(result)
             return result;
         }
-        catch(err)
-        {
-            throw err;
         }
-    }
 
 async function updateFolder({folder_id,name}){
     console.log("update folder");
-    try{
-        await connection.query(`update ${folder_table} set name = ? where folder_id=?`, [name,folder_id]);
+      {
+        const [result] =await connection.query(`update ${folder_table} set name = ? where folder_id=?`, [name,folder_id]);
         console.log("Folder updated");
+        return result[0].folder_id;
     }
-    catch(err)
-    {
-        console.log(err);
-    }
+    
 }    
-async function deleteFolder({id}){
+async function deleteFolder({folder_id}){
     console.log("delete folder");
-    try{
-        const [result] = await connection.query(`DELETE FROM ${folder_table} WHERE folder_id = ?;`,[id]);
-        console.log(result)
-        return result;
-    }
-    catch(err)
-    {
-        console.log(err);
+      {
+        const [result] = await connection.query(`DELETE FROM ${folder_table} WHERE folder_id = ?;`,[folder_id]);
+        console.log(result.affectedRows)
+        return result.affectedRows;
     }
 }
 }

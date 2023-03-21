@@ -12,7 +12,7 @@ module.exports = function makeGetFolderByIdController({
       const ans = await userExists({ id });
       console.log(ans);
 
-      if (ans == 1) {
+      if (ans) {
         await getFolderById({ id });
         res.status(201).json({
           status: "Success",
@@ -27,7 +27,7 @@ module.exports = function makeGetFolderByIdController({
     } catch (err) {
       res.status(500).json({
         status: "Error",
-        messege: "Error" + err,
+        messege: err.message,
       });
     }
   };

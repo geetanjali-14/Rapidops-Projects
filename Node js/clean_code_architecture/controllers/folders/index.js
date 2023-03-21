@@ -16,7 +16,7 @@ const createCreatefolderController = makeCreateFolderController({
 const createDeletefolderController = makeDeleteFolderController({
   Joi,
   deleteFolder: useCases.folders.deleteFolder,
-  folderExists: useCases.folders.folderExists,
+  folderExistsByFolderId: useCases.folders.folderExistsByFolderId,
 });
 
 const createUpdatefolderController = makeUpdateFolderController({

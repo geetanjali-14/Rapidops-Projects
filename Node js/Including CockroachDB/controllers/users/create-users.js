@@ -1,7 +1,15 @@
+const { Kafka } = require('kafkajs')
+
+const kafka = new Kafka({
+    clientId: 'create-default-folders',
+    brokers: ['localhost:9092']
+  });
+
+  const producer = kafka.producer()
 module.exports = function makeCreateUserController({
   Joi,
   createUser,
-  // defaultFolders,
+  defaultFolders,
   findId,
   producer,
 }) {
@@ -25,25 +33,33 @@ module.exports = function makeCreateUserController({
         refresh_token,
         database_name,
       });
-      // console.info("userDetails",userDetails);
+      console.info("userDetails",userDetails);
 
       const id = await findId({ email, database_name });
-      // await defaultFolders({ id, database_name });
+      await defaultFolders({ id, database_name });
+      const data = {
+        userId:id,
+        accessToken:access_token,
+    }
       await producer.connect();
-      console.log("Producer connected to Kafka broker");
-      await producer.send({
-        topic: "my-topic",
-        messages: [{ value: `${id}` }],
-      });
-      console.log(`Message ${id} sent to Kafka broker`);
-
-      // console.info("ID inside default folders ", id);
+        console.log("producer connected successfully");
+        await producer.send({
+          topic: 'folders',
+          messages: [
+            {
+              value: JSON.stringify({
+              result: data,
+              }),
+            },
+          ],
+        });
+        console.info("message send successfully");
+      console.info("ID inside default folders ", id);
 
       res.status(201).json({
         status: "Success",
-        messege: "User's Default Folders Created",
+        messege: "User and User's Default Folders Created",
       });
-      return userDetails;
     } catch (error) {
       res.status(500).json({
         status: "Error",

@@ -4,7 +4,7 @@ module.exports = function makeDefaultFolderUseCase({
 }){
   return async function defaultFoldersUseCase({id,database_name}) {
       console.info(`Inside default folder user use case`);
-      validateInput({id});
+      // validateInput({id});
       try{
         const result =await foldersDb.defaultFolders({id,database_name});
         return result;
@@ -14,16 +14,13 @@ module.exports = function makeDefaultFolderUseCase({
           throw err;
         }
   }
-  function validateInput({id}) {
-      const schema = Joi.object({
-          id: Joi.number().required().messages({
-              'number.base':'"id" must be a number',
-            }),
-      });
-      const {error} = schema.validate({id});
-      if (error) {
-        console.error(error)
-        throw new Error(`${error.details[0].message}`);
-      }
-    }
+  // function validateInput({id}) {
+  //   const schema = Joi.number().integer().positive();
+
+  //   const { error, value } = schema.validate(id);
+  //   if (error) {
+  //     throw new Error(`Invalid id: ${error.message}`);
+  //   }
+  //   console.log(`The id value is: ${value}`);
+  //   }
 }

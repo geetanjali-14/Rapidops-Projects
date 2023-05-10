@@ -10,7 +10,7 @@ const Joi=require('joi')
 
 const defaultFolders = makeDefaultFolderUseCase({
   Joi,
-  foldersDb: dataAccess.folders,
+  foldersDb: dataAccess.folders.defaultFolders,
 });
 const folderExists = makeFolderExistUseCase({
   Joi,

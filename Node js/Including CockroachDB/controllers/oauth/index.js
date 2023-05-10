@@ -5,7 +5,7 @@ const useCases = require('../../use-cases');
 
 const CLIENT_ID ='44296329626-rhukh8qus0oabhccsbhjlnfgqbicvnfc.apps.googleusercontent.com'
 const CLIENT_SECRET = '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';
-const REDIRECT_URI = "http://localhost:8081/auth/google/callback";
+const REDIRECT_URI = "http://localhost:8085/auth/google/callback";
 
 const client = new OAuth2Client(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI);
 const makeAuthenticationAction=require("./authentication");

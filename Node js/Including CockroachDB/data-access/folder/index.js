@@ -12,13 +12,13 @@ function makeFolderDbMethods({ connection }) {
     folderExistsByFolderId,
   });
 
-  async function defaultFolders({ id,database_name }) {
-    console.log("Inside default folder data-access");
+  async function defaultFolders({ user_id,database_name }) {
+    console.log("Inside default folder data-access",user_id);
     const folders = ["inbox", "outbox", "trash", "archieve", "trash"];
     try {
       for (let i in folders) {
         await connection.query(`insert into ${database_name}.${folder_table} (user_id,name) values ($1,$2)`, [
-          id,
+          user_id,
           folders[i],]
         );
       }

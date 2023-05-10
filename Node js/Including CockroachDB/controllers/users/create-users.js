@@ -1,17 +1,16 @@
-const { Kafka } = require('kafkajs')
+const { Kafka } = require("kafkajs");
 
 const kafka = new Kafka({
-    clientId: 'create-default-folders',
-    brokers: ['localhost:9092']
-  });
+  clientId: "create-default-folders",
+  brokers: ["localhost:9092"],
+});
 
-  const producer = kafka.producer()
+const producer = kafka.producer();
 module.exports = function makeCreateUserController({
   Joi,
   createUser,
   defaultFolders,
   findId,
-  producer,
 }) {
   return async function createUserController(req, res) {
     console.info(`In create user controller`, req.body);
@@ -33,27 +32,33 @@ module.exports = function makeCreateUserController({
         refresh_token,
         database_name,
       });
-      console.info("userDetails",userDetails);
+      console.log("Exiting create user Controller",userDetails)
 
       const id = await findId({ email, database_name });
-      await defaultFolders({ id, database_name });
+      console.log("User's id in controller")
+      // await defaultFolders({ id, database_name });
       const data = {
-        userId:id,
-        accessToken:access_token,
-    }
-      await producer.connect();
-        console.log("producer connected successfully");
+        userId: id,
+        database_name,
+      };
+      const run = async () => {
+        await producer.connect();
+        console.log("Producer connected successfully");
+
+        const message = {
+          value: JSON.stringify(data),
+        };
+
         await producer.send({
-          topic: 'folders',
-          messages: [
-            {
-              value: JSON.stringify({
-              result: data,
-              }),
-            },
-          ],
+          topic: "mytopic",
+          messages: [message],
         });
-        console.info("message send successfully");
+        console.log("Message sent:", message.value.toString());
+
+        await producer.disconnect();
+      };
+
+      run().catch(console.error);
       console.info("ID inside default folders ", id);
 
       res.status(201).json({

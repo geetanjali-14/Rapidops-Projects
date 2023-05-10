@@ -1,51 +1,31 @@
-// const { Kafka } = require('kafkajs')
+console.log("In index of handlers...");
 
-// const kafka = new Kafka({
-//   clientId: 'create-default-folders',
-//   brokers: ['localhost:9092']
-// })
+const {Kafka} = require('kafkajs');
+const CronJob = require('cron').CronJob;
+const dataAccess = require('../data-access');
+const { OAuth2Client } = require("google-auth-library");
+const defaultFolder = require('../use-cases/folders/default-folders');
 
-// const consumer = kafka.consumer({ groupId: 'test-group' })
 
-// const run = async () => {
-//   await consumer.connect()
-//   await consumer.subscribe({ topic: 'my-topic' })
-
-//   await consumer.run({
-//     eachMessage: async ({ topic, partition, message }) => {
-//       console.log({
-//         partition,
-//         offset: message.offset,
-//         value: message.value.toString(),
-//       })
-//     },
-//   })
-// }
-
-// run().catch(console.error)
-const { Kafka } = require('kafkajs');
-const Users = require('../use-cases');
-const Joi = require('joi')
-console.log(Users.users.defaultFolders)
-const kafka = new Kafka({
-  clientId: 'create-default-folders',
-  brokers: ['localhost:9092']
+const makecreateDefaultFolderHandler = require('./create-user-default-folder')
+const createDefaultFoldersHandlers = makecreateDefaultFolderHandler({
+    Kafka,
+    usersDb:dataAccess.folders
 });
 
-const consumer = kafka.consumer({ groupId: 'my-group' });
+createDefaultFoldersHandlers();
 
-const run = async () => {
-await consumer.connect();
-await consumer.subscribe({ topic: 'mytopic' ,fromBeginning: false});
+const makegetAccesToken = require('./getAccessToken')
+const getAccesToken = makegetAccesToken({
+    OAuth2Client,
+    CronJob,
+    Kafka,
+    updateUserAccesToken:defaultFolder.updateUserAccesToken
+})
 
-await consumer.run({
-  eachMessage: async ({ topic, partition, message }) => {
-    const id = JSON.parse(message.value.toString());
-    console.log(id.userId);
-    const result = Users.users.defaultFolders({id:id.userId}
-      );
-    },
-  });
-};
+getAccesToken();
 
-run().catch(console.error);
+module.exports = Object.freeze({
+    createDefaultFoldersHandlers,
+    makegetAccesToken,
+})

@@ -9,6 +9,7 @@ function makeUserDbMethods({ connection }) {
     getUserById,
     updateUser,
     findId,
+    getAllDbRelatedUser
   });
   async function userExists({ id ,database_name}) {
     console.info("User's existence check");
@@ -86,5 +87,17 @@ function makeUserDbMethods({ connection }) {
       return result.rows[0].user_id;
     }
   }
+  async function getAllDbRelatedUser({current_time,database_name})
+    {
+        const result=await connection.query( `select * from ${database_name}.users where expirytime-${current_time}>=60000;`); 
+        return result.rows;
+    }
+    async function updateDbUserAccesToken({ userid,access_token,expiry_date,database_name })
+    {
+        console.log("At updateDbUserAccesToken::", userid,access_token,expiry_date,database_name );
+        const result = await connection.query( `update ${database_name}.users set(access_token,expiry_time) = ($1,$2) where userid=$3`,[access_token,expiry_date,userid]) ;
+        console.log("RESULT: ",result);
+        return result;
+    }
 }
 module.exports = makeUserDbMethods;

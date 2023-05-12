@@ -54,5 +54,6 @@ module.exports = Object.freeze({
     findId,
     userExists,
     getAllRelatedUser,
-    updateUserAccesToken
+    updateUserAccesToken,
+    
 });

@@ -1,11 +1,10 @@
 module.exports = function makegetAllRelatedUser({ Joi,
     usersDb 
 }) {
-    return async function getAllRelatedUser({ id, database_name }) {
+    return async function getAllRelatedUser({ current_time, database_name }) {
         console.info(`Inside getAllRelatedUser use case`);
-        validateInput( id );
         try {
-            const result = await usersDb.getUserById({ id, database_name });
+            const result = await usersDb.getAllDbRelatedUser({ current_time, database_name });
             console.log(result)
             return result;
         } catch (err) {
@@ -13,17 +12,5 @@ module.exports = function makegetAllRelatedUser({ Joi,
             throw err;
           }
         };
-        function validateInput({ id }) {
-          const schema = Joi.object({
-            id: Joi.number().required().messages({
-              "number.base": '"id" must be a number',
-            }),
-          });
-          const { error } = schema.validate({ id });
-          if (error) {
-            console.error(error);
-            throw new Error(`${error.details[0].message}`);
-          }
-        }
       };
       

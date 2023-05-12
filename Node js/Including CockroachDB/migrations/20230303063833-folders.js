@@ -18,9 +18,9 @@ async function up(queryInterface) {
         onUpdate:'CASCADE',
         onDelete:'CASCADE'
       },
-      folderproviderId: {
+      folder_provider_id: {
         allowNull: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING
       }
     });
   }

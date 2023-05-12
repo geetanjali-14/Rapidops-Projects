@@ -6,7 +6,7 @@ module.exports = function makecreateDefaultFolderHandler({
     return async function defaultFolders()
     {
         const kafka=new Kafka({
-            clientId:'user-default-folder',
+            clientId:'user-default-folders',
             brokers:['localhost:9092']
         });
         console.log("Inside Consumer")
@@ -14,7 +14,7 @@ module.exports = function makecreateDefaultFolderHandler({
         
         await consumer.connect();
         console.log(" Consumer connected #defaultFolders")
-        await consumer.subscribe({ topic:'userCreatedFolders', fromBeginning: true});
+        await consumer.subscribe({ topic:'userCreatedFolders', fromBeginning: false});
         console.log(" Consumer Subscribed #defaultFolders")
         await consumer.run({
             eachMessage: async({ topic, partition, message }) => {

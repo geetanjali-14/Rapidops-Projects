@@ -9,7 +9,8 @@ function makeUserDbMethods({ connection }) {
     getUserById,
     updateUser,
     findId,
-    getAllDbRelatedUser
+    getAllDbRelatedUser,
+    updateUserAccesToken
   });
   async function userExists({ id ,database_name}) {
     console.info("User's existence check");
@@ -66,7 +67,7 @@ function makeUserDbMethods({ connection }) {
   }
   async function getUserById({ id,database_name }) {
     {
-      const [result] = await connection.query(
+      const result = await connection.query(
         `select * from ${database_name}.${users_table} where user_id=$1;`,
         [id]
       );
@@ -89,14 +90,16 @@ function makeUserDbMethods({ connection }) {
   }
   async function getAllDbRelatedUser({current_time,database_name})
     {
-        const result=await connection.query( `select * from ${database_name}.users where expirytime-${current_time}>=60000;`); 
+        const result=await connection.query( `select * from ${database_name}.users where expiry_date-${current_time}>=60000;`); 
         return result.rows;
     }
-    async function updateDbUserAccesToken({ userid,access_token,expiry_date,database_name })
+
+    
+    async function updateUserAccesToken({ user_id,access_token,expiry_date,database_name })
     {
-        console.log("At updateDbUserAccesToken::", userid,access_token,expiry_date,database_name );
-        const result = await connection.query( `update ${database_name}.users set(access_token,expiry_time) = ($1,$2) where userid=$3`,[access_token,expiry_date,userid]) ;
-        console.log("RESULT: ",result);
+        console.log("At updateDbUserAccesToken::", user_id,access_token,expiry_date,database_name );
+        const result = await connection.query( `update ${database_name}.users set(access_token,expiry_date) = ($1,$2) where user_id=$3`,[access_token,expiry_date,user_id]) ;
+        // console.log("RESULT: ",result);
         return result;
     }
 }

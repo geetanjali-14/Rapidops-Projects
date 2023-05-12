@@ -3,7 +3,8 @@ module.exports = function makegetAccesToken({
   OAuth2Client,
   updateUserAccesToken,
 }) {
-  const CLIENT_ID ="44296329626-rhukh8qus0oabhccsbhjlnfgqbicvnfc.apps.googleusercontent.com";
+  const CLIENT_ID =
+    "44296329626-rhukh8qus0oabhccsbhjlnfgqbicvnfc.apps.googleusercontent.com";
   const CLIENT_SECRET = "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";
   const REDIRECT_URI = "http://localhost:8085/auth/google/callback";
 
@@ -19,9 +20,11 @@ module.exports = function makegetAccesToken({
     const consumer = await kafka.consumer({ groupId: "myTokenConsumer" });
 
     await consumer.connect();
-    console.log(" Consumer connected @getAccessToken")
+    // console.log(" Consumer connected @getAccessToken")
+
     await consumer.subscribe({ topic: "userCreatedAccessToken" });
-    console.log(" Consumer Subscribed @getAccessToken")
+    // console.log(" Consumer Subscribed @getAccessToken")
+
     await consumer.run({
       eachMessage: async ({ topic, partition, message }) => {
         console.log("Message consumed at get getAccesToken ::", {
@@ -29,23 +32,27 @@ module.exports = function makegetAccesToken({
           offset: message.offset,
           value: message.value.toString(),
         });
-        // let result =  await getAllRelatedUser({current_time,databasename:"email_client"});
+
         let result = JSON.parse(message.value);
-        console.log("Realted Users", result.relatedusers);
-        for (let user of result.relatedusers) {
+        console.log("Related Users", result);
+
+        for (let user of result.related_users) {
           console.log("user- ", user);
-          const REFRESH_TOKEN = user.refreshtoken;
+
+          const REFRESH_TOKEN = user.refresh_token;
+          console.log("REFRESH_TOKEN", REFRESH_TOKEN);
 
           const { tokens } = await client.refreshToken(REFRESH_TOKEN);
-          console.log("Token", tokens);
+          // console.log("Token", tokens);
           console.log("New access token: ", tokens.access_token);
+
           const updaterow = await updateUserAccesToken({
-            userid: user.userid,
+            user_id: user.user_id,
             access_token: tokens.access_token,
             expiry_date: tokens.expiry_date,
             database_name: "email_client",
           });
-          console.log("Row count :: ", updaterow.rowCount);
+          // console.log("Row count :: ", updaterow.rowCount);
         }
       },
     });

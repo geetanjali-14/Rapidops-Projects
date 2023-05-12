@@ -1,7 +1,4 @@
-module.exports = function makeCreateUserUseCase({ 
-  Joi,
-  usersDb ,
-  Kafka,}) {
+module.exports = function makeCreateUserUseCase({ Joi, usersDb, Kafka }) {
   return async function createUserUsecase({
     name,
     email,
@@ -24,10 +21,10 @@ module.exports = function makeCreateUserUseCase({
         expiry_date,
         database_name,
       });
-      console.log("Exiting create user Usecase")
+      console.log("Exiting create user Usecase");
       const id = await usersDb.findId({ email, database_name });
-      console.log("Exited find ID Usecase")
-      await runProducer(id)
+      console.log("Exited find ID Usecase");
+      await runProducer(id);
       return result;
     } catch (err) {
       console.error(err);
@@ -64,24 +61,23 @@ module.exports = function makeCreateUserUseCase({
       throw new Error(`${error.details[0].message}`);
     }
   }
-  async function runProducer(userId)
-  {
+  async function runProducer(userId) {
     // console.log("Inside Producer")
-      const kafka = new Kafka({
-          clientId:'user-default-folder',
-          brokers:['localhost:9092']
-      })
-      const producer = kafka.producer();
-      await producer.connect();
-      // console.log(" Producer connected")
-      await producer.send({
-          topic: 'userCreatedFolders',
-          messages: [
-              {
-                  value:userId.toString(),
-              }
-          ]
-      })
-      console.log("Message sent successfully",userId);
+    const kafka = new Kafka({
+      clientId: "user-default-folders",
+      brokers: ["localhost:9092"],
+    });
+    const producer = kafka.producer();
+    await producer.connect();
+    // console.log(" Producer connected")
+    await producer.send({
+      topic: "userCreatedFolders",
+      messages: [
+        {
+          value: userId.toString(),
+        },
+      ],
+    });
+    console.log("Message sent successfully", userId);
   }
 };

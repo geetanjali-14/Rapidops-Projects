@@ -30,8 +30,8 @@ function initFolderRoutes() {
   router.get("/folders/foldersByUserId/:id",controllers.folderControllers.createGetfolderByIdController);
 }
 function initauth() {
-router.get("/auth/google", controllers.authControllers.googleAuthLogin);
-router.get("/auth/google/callback", controllers.authControllers.googleAuthCallback);
+router.get("/auth/google", controllers.authControllers.authAction.googleAuthLogin);
+router.get("/auth/google/callback", controllers.authControllers.authAction.googleAuthCallback);
 }
 init();
 module.exports = router;

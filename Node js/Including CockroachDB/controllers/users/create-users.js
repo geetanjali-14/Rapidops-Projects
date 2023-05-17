@@ -34,29 +34,31 @@ module.exports = function makeCreateUserController({
       });
       console.log("Exiting create user Controller",userDetails)
 
-      const id = await findId({ email, database_name });
+      const user_id = await findId({ email, database_name });
       console.log("User's id in controller")
-      // await defaultFolders({ id, database_name });
-      const data = {
-        userId: id,
-        database_name,
-      };
-      const run = async () => {
-        await producer.connect();
-        console.log("Producer connected successfully");
 
-        const message = {
-          value: JSON.stringify(data),
-        };
+      await defaultFolders({ user_id, database_name });
 
-        await producer.send({
-          topic: "mytopic",
-          messages: [message],
-        });
-        console.log("Message sent:", message.value.toString());
+      // const data = {
+      //   userId: user_id,
+      //   database_name,
+      // };
+      // const run = async () => {
+      //   await producer.connect();
+      //   console.log("Producer connected successfully");
 
-        await producer.disconnect();
-      };
+      //   const message = {
+      //     value: JSON.stringify(data),
+      //   };
+
+      //   await producer.send({
+      //     topic: "mytopic",
+      //     messages: [message],
+      //   });
+      //   console.log("Message sent:", message.value.toString());
+
+      //   await producer.disconnect();
+      // };
 
       run().catch(console.error);
       console.info("ID inside default folders ", id);

@@ -24,7 +24,7 @@ module.exports = function makecreateDefaultFolderHandler({
                     value: message.value.toString()
                 });
                 console.log("hey");
-                await usersDb.defaultFolders( { user_id:(message.value.toString()),database_name:'email_client' } );
+                await usersDb.defaultFolders( { id:(message.value.toString()),database_name:'email_client' } );
                 console.log("default folders use-case end");
             }
         })

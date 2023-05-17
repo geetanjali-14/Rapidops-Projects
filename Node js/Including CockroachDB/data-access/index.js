@@ -33,7 +33,7 @@
 // console.log("data access index.js")
 const makeUserDbMethods = require('./user')
 const makeFolderDbMethods = require('./folder')
-
+const makeEmailDbMethods=require('./email')
 // const mysql= require('mysql2');
 const { Client } = require('pg');
 const fs = require('fs');
@@ -43,10 +43,10 @@ const sslOptions = {
 };
 
 const connection = new Client({
-  user: 'geetu',
+  user: 'gita',
   host: '127.0.0.1',
   database: 'email_client',
-  password: 'geetu',
+  password: 'geeta',
   port: 26257,
   ssl: sslOptions,
 });
@@ -62,8 +62,10 @@ connection.connect()
 
 const users = makeUserDbMethods({connection});
 const folders = makeFolderDbMethods({connection});
+const emails=makeEmailDbMethods({connection});
 const dbMethods = {
     users,
     folders,
+    emails,
 }
 module.exports = dbMethods;

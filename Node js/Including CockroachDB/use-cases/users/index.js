@@ -18,7 +18,7 @@ const userExists = makeUserExistUseCase({
 const createUser = makeCreateUserUseCase({
     Joi,
     usersDb: dataAccess.users,
-    Kafka,
+    foldersDb:dataAccess.folders
 });
 const showUser = makeShowUserUseCase({
     usersDb: dataAccess.users

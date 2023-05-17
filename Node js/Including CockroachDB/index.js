@@ -7,7 +7,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use("/", router);
 const { Sequelize } = require("sequelize");
 
-const sequelize = new Sequelize("email_client", "geetu", "geetu", {
+const sequelize = new Sequelize("email_client", "gita", "geeta", {
   dialect: "postgres",
   host: "localhost",
   port: 26257,
@@ -37,3 +37,15 @@ app.listen(port, (err) => {
     console.log(`App listening at http://localhost:${port}/users`);
   }
 });
+
+//Function to stop program for specified time
+
+// function sleep(ms) {
+//  return new Promise(resolve => setTimeout(resolve, ms));
+// }
+// async function run() {
+// console.log('Start');
+// await sleep(10000); 
+// console.log('End');
+// }
+// run();

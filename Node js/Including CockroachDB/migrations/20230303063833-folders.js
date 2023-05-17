@@ -21,6 +21,10 @@ async function up(queryInterface) {
       folder_provider_id: {
         allowNull: true,
         type: Sequelize.STRING
+      },
+      folders_priority:{
+        type: Sequelize.INTEGER,
+        allowNull: true,
       }
     });
   }

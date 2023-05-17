@@ -16,7 +16,7 @@ const CLIENT_ID ="44296329626-rhukh8qus0oabhccsbhjlnfgqbicvnfc.apps.googleuserco
   const client = new OAuth2Client(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI);
 function runCron()
 {
-    const job = new CronJob('*/6 * * * * *',async function() 
+    const job = new CronJob('*/6 * * * *',async function() 
     {
         const current_time=new Date().getTime();
         let related_users = await getAllRelatedUser({current_time,database_name});

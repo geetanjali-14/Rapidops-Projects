@@ -25,6 +25,11 @@ async function up(queryInterface) {
       folders_priority:{
         type: Sequelize.INTEGER,
         allowNull: true,
+      },
+      fetched:
+      {
+        type: Sequelize.BOOLEAN,
+        allowNull: true,
       }
     });
   }

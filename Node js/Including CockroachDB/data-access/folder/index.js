@@ -11,18 +11,20 @@ function makeFolderDbMethods({ connection }) {
     defaultFolders,
     folderExistsByFolderId,
     updateProviderId,
-    fetchLabelsByPriority
+    fetchLabelsByPriority,
+    markFetched,
+    fetchAllFolders,
   });
 
   async function defaultFolders({ user_id, database_name }) {
     console.log("Inside default folder data-access", user_id);
-    const folders = ["INBOX", "OUTBOX", "TRASH", "ARCHIEVE", "SENT"];
+    const folders = ["INBOX", "TRASH", "SENT"]; //OUTBOX,  ARCHIEVE removed
     try {
       for (let i in folders) {
         if (folders[i] == "INBOX") priority = 1;
-        else if (folders[i] == "OUTBOX") priority =4;
+        // else if (folders[i] == "OUTBOX") priority =4;
         else if (folders[i] == "TRASH") priority = 5;
-        else if (folders[i] == "ARCHIEVE") priority = 6;
+        // else if (folders[i] == "ARCHIEVE") priority = 6;
         else if (folders[i] == "SENT") priority = 3;
 
         await connection.query(
@@ -52,16 +54,41 @@ function makeFolderDbMethods({ connection }) {
     }
   }
 
-  async function fetchLabelsByPriority({user_id,database_name }) {
+  async function fetchLabelsByPriority({ user_id, database_name }) {
     console.info("Inside fetch Labels By Priority data-access");
     {
       const result = await connection.query(
-        `select name, folders_priority from ${database_name}.${folder_table};`,
+        `select name, folders_priority from ${database_name}.${folder_table} where user_id=$1;`,
+        [user_id]
       );
       // console.info("fetchLabelsByPriority result:",result);
       return result;
     }
   }
+
+  async function fetchAllFolders({ user_id, database_name }) {
+    console.info("Inside fetch Folders With Emails data-access");
+    {
+      const result = await connection.query(
+        `select folder_id, user_id from ${database_name}.${folder_table} where user_id=$1;`,
+        [user_id]
+      );
+      // console.info("fetchLabelsByPriority result:",result);
+      return result;
+    }
+  }
+  
+  async function markFetched({ labelName, user_id, database_name }) {
+    console.info("Inside markFetched data-access");
+    {
+      const result = await connection.query(
+        `Update ${database_name}.${folder_table} set fetched=$1 where user_id=$2 and name=$3`,
+        ["1", user_id, labelName]
+      );
+      return result;
+    }
+  }
+
   async function folderExists({ id, name, database_name }) {
     console.info("Folder existence check");
     {
@@ -93,12 +120,6 @@ function makeFolderDbMethods({ connection }) {
     providerId,
     priority,
   }) {
-    // console.info("Create folder data access", {
-    //   user_id,
-    //   folderName,
-    //   database_name,
-    //   priority,
-    // });
     {
       const result = await connection.query(
         `INSERT INTO ${database_name}.${folder_table} (user_id,name,folder_provider_id,folders_priority) VALUES ($1,$2,$3,$4)`,

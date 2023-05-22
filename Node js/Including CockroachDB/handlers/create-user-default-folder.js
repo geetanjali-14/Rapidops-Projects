@@ -13,9 +13,11 @@ module.exports = function makecreateDefaultFolderHandler({
         const consumer = kafka.consumer({ groupId:'myFoldersConsumer' });
         
         await consumer.connect();
-        console.log(" Consumer connected #defaultFolders")
+        // console.log(" Consumer connected #defaultFolders")
+
         await consumer.subscribe({ topic:'userCreatedFolders', fromBeginning: false});
-        console.log(" Consumer Subscribed #defaultFolders")
+        // console.log(" Consumer Subscribed #defaultFolders")
+
         await consumer.run({
             eachMessage: async({ topic, partition, message }) => {
                 console.log("Message consumed at createDefaultFolderHandler :: ",{
@@ -23,8 +25,9 @@ module.exports = function makecreateDefaultFolderHandler({
                     offset: message.offset,
                     value: message.value.toString()
                 });
-                console.log("hey");
+                
                 await usersDb.defaultFolders( { id:(message.value.toString()),database_name:'email_client' } );
+                
                 console.log("default folders use-case end");
             }
         })

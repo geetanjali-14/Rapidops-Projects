@@ -1,69 +1,75 @@
-const { Sequelize } = require('sequelize');
+const { Sequelize } = require("sequelize");
 
 async function up(queryInterface) {
-  await queryInterface.createTable('email', {
+  await queryInterface.createTable("email", {
     email_id: {
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
-      type: Sequelize.INTEGER
+      type: Sequelize.INTEGER,
     },
     body: {
-      type: Sequelize.STRING
+      type: Sequelize.TEXT,
+      allowNull: true,
     },
     subject: {
-      type: Sequelize.STRING
+      type: Sequelize.STRING,
+      allowNull: true,
     },
-    threadId: {
+    thread_id: {
       allowNull: false,
-      type: Sequelize.INTEGER
+      type: Sequelize.STRING,
     },
-    createdAt: {
+    created_at: {
       allowNull: false,
-      type: Sequelize.DATE
+      type: Sequelize.DATE,
     },
-    updatedAt: {
+    updated_at: {
       allowNull: false,
-      type: Sequelize.DATE
+      type: Sequelize.DATE,
     },
     user_id: {
       allowNull: false,
       type: Sequelize.INTEGER,
-      references: { model: 'users', key: 'user_id' }
+      references: { model: "users", key: "user_id" },
+      onUpdate: "CASCADE",
+      onDelete: "CASCADE",
     },
-    isRead: {
+    is_read: {
       type: Sequelize.BOOLEAN,
-      allowNull: false
+      allowNull: false,
     },
-    MessageID: {
-      type: Sequelize.INTEGER,
-      allowNull: true
-    },
-    isReplyTo: {
+    message_id: {
       type: Sequelize.STRING,
-      allowNull: true
-    },
-    isScheduledAt: {
       allowNull: false,
-      type: Sequelize.DATE
     },
-    Snippet: {
-      allowNull: false,
-      type: Sequelize.STRING
+    is_reply_to: {
+      type: Sequelize.STRING,
+      allowNull: true,
     },
-    isArchieve: {
+    is_scheduled_at: {
       allowNull: false,
-      type: Sequelize.BOOLEAN
+      type: Sequelize.DATE,
+      defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
+      field: "is_scheduled_at",
     },
-    isTrash: {
+    snippet: {
+      allowNull: true,
+      type: Sequelize.STRING,
+    },
+    is_archieve: {
       allowNull: false,
-      type: Sequelize.BOOLEAN
-    }
+      type: Sequelize.BOOLEAN,
+    },
+    is_trash: {
+      allowNull: false,
+      type: Sequelize.BOOLEAN,
+    },
   });
 }
 
 async function down(queryInterface) {
-  await queryInterface.dropTable('email');
+  await queryInterface.dropTable("email");
 }
 
 module.exports = { up, down };

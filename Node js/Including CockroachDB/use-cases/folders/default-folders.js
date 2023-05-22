@@ -1,6 +1,7 @@
 module.exports = function makeDefaultFolderUseCase({
   Joi,
   foldersDb,
+  // insert_email_folder_id,
 }){
   return async function defaultFoldersUseCase({user_id,database_name}) {
       console.info(`Inside default folder user use case`);
@@ -17,7 +18,7 @@ module.exports = function makeDefaultFolderUseCase({
   function validateInput({user_id}) {
     const schema = Joi.number().integer().positive();
 
-    const { error, value } = schema.validate(id);
+    const { error, value } = schema.validate(user_id);
     if (error) {
       throw new Error(`Invalid id: ${error.message}`);
     }

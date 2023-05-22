@@ -13,6 +13,7 @@ module.exports = function makeCreateFolderUseCase({ Joi, foldersDb }) {
         folderName,
         database_name,
       });
+      
       return newFolderDetails;
     } catch (err) {
       console.error(err);

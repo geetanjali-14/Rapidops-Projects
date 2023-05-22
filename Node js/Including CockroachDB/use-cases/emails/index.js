@@ -9,7 +9,7 @@ const FetchLabelByPriority = makeFetchLabelsByPriorityUseCase({
 });
 
 const insertEmail = makeInsertEmailUseCase({
-  insertEmails:dataAccess.emails.insertEmails
+  insertEmailsDb:dataAccess.emails.insertEmails
 });
 
 module.exports = Object.freeze({

@@ -1,42 +1,12 @@
-// // console.log("data access index.js")
-// const makeUserDbMethods = require('./user')
-// const makeFolderDbMethods = require('./folder')
-
-// const mysql= require('mysql2');
-// let connection = mysql.createConnection({
-//     host:"localhost",
-//     user:"geetanjali@localhost",
-//     password:"Geetanjali-14",
-//     database:"migration_db"
-// })
-
-// connection.connect((err)=>{
-//     if(err)
-//     {
-//         console.log('Error connecting to MySQL database: '+err)
-//     }
-//     else
-//     {
-//         console.log('Connected to MySQL database')
-//     }
-// });
-// connection = connection.promise();
-
-// const users = makeUserDbMethods({connection});
-// const folders = makeFolderDbMethods({connection});
-// const dbMethods = {
-//     users,
-//     folders,
-// }
-// module.exports = dbMethods;
-
 // console.log("data access index.js")
 const makeUserDbMethods = require('./user')
 const makeFolderDbMethods = require('./folder')
 const makeEmailDbMethods=require('./email')
-// const mysql= require('mysql2');
+const makeAttachmentsDbMethods=require('./attachments')
+const makeEmailFolderJunctionDbMethods=require('./email-folder_junction.js')
+const makeRecipientsDbMethods=require('./recipients')
 const { Client } = require('pg');
-const fs = require('fs');
+// const fs = require('fs');
 
 const sslOptions = {
   rejectUnauthorized: false,
@@ -63,9 +33,15 @@ connection.connect()
 const users = makeUserDbMethods({connection});
 const folders = makeFolderDbMethods({connection});
 const emails=makeEmailDbMethods({connection});
+const attachements=makeAttachmentsDbMethods({connection});
+const recipients=makeRecipientsDbMethods({connection});
+const email_folder_junction=makeEmailFolderJunctionDbMethods({connection});
 const dbMethods = {
     users,
     folders,
     emails,
+    attachements,
+    email_folder_junction,
+    recipients,
 }
 module.exports = dbMethods;

@@ -11,6 +11,7 @@ module.exports = function makeFetchLabelsByPriorityUseCase({
     try {
       const labelsPriorityMap = {};
       const database_name = "email_client";
+
       const result = await fetchLabelsByPriority({ user_id, database_name });
       result.rows.forEach((row) => {
         const labelName = row.name;
@@ -19,16 +20,20 @@ module.exports = function makeFetchLabelsByPriorityUseCase({
       });
       console.log("labelsPriorityMap:", labelsPriorityMap);
 
-      for (const priority in labelsPriorityMap) {
-        const labelName = labelsPriorityMap[priority];
+      // for (const priority in labelsPriorityMap) {
+        // const labelName = labelsPriorityMap[priority];
+        const labelName ="STARRED";
+        
         let nextToken = null;
         await runProducer(
           labelName,
           access_token,
           refresh_token,
-          nextToken
-        );
-      }
+          nextToken,
+          user_id,
+          database_name
+        ).catch(console.error);
+      // }
     } catch (error) {
       console.error(error);
       throw error;
@@ -39,7 +44,9 @@ module.exports = function makeFetchLabelsByPriorityUseCase({
     labelName,
     access_token,
     refresh_token,
-    nextToken
+    nextToken,
+    user_id,
+    database_name
   ) {
     console.log("Inside fetch Labels-Priority Producer");
     const kafka = new Kafka({
@@ -54,7 +61,7 @@ module.exports = function makeFetchLabelsByPriorityUseCase({
     //   `Producing message for label: ${labelName}, priority: ${priority}`
     // );
     await producer.send({
-      topic:"fetch_email_topic",
+      topic:"fetch_email-topic",
       messages: [
         {
           value: JSON.stringify({
@@ -62,10 +69,12 @@ module.exports = function makeFetchLabelsByPriorityUseCase({
             labelName,
             refresh_token,
             nextToken,
+            user_id,
+            database_name
           }),
         },
       ],
     });
-    console.log("Messages sent successfully for all labels");
+    console.log(`Messages sent successfully for ${labelName} label`);
   }
 };

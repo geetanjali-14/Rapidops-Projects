@@ -10,6 +10,7 @@ function makeFolderDbMethods({ connection }) {
     folderExists,
     defaultFolders,
     folderExistsByFolderId,
+    updateFolderProviderId,
   });
 
   async function defaultFolders({ id ,database_name}) {
@@ -52,12 +53,12 @@ function makeFolderDbMethods({ connection }) {
       return result[0].row;
     }
   }
-  async function createFolder({ user_id, name ,database_name}) {
+  async function createFolder({ user_id, name ,database_name,folderproviderid}) {
     console.info("Create folder data access");
     {
       const [result] = await connection.query(
-        `INSERT INTO ${database_name}.${folder_table} (name,user_id) VALUES (?,?);`,
-        [name, user_id]
+        `INSERT INTO ${database_name}.${folder_table} (name,user_id) VALUES (?,?,?);`,
+        [name, user_id,folderproviderid]
       );
       console.info("Folder Created");
       return result.affectedRows;
@@ -96,5 +97,10 @@ function makeFolderDbMethods({ connection }) {
       return result.affectedRows;
     }
   }
+  async function updateFolderProviderId({user_id,folderproviderid,name,database_name})
+    {
+        let result = await connection.query( `update ${database_name}.${folder_table} set providerfolderid=? where userid=? and name=?`,[folderproviderid,user_id,name]) ;
+        return result;
+    }
 }
 module.exports = makeFolderDbMethods;

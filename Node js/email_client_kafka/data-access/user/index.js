@@ -1,5 +1,5 @@
 // console.log("user use case index.js")
-const users_table = "Users";
+const users_table = "users";
 function makeUserDbMethods({ connection }) {
   return Object.freeze({
     userExists,
@@ -26,9 +26,10 @@ function makeUserDbMethods({ connection }) {
     console.log("Create user");
     {
       const [result]=await connection.query(
-        `INSERT INTO ${users_table} (name,email,password) VALUES (?,?,?);`,
-        [name, email, password]
-      );
+        // `INSERT INTO ${users_table} (name,email,password) VALUES (?,?,?);`,
+        // [name, email, password]);
+        `INSERT INTO users (name,email,password) VALUES (?,?,?);`,
+        [name, email, password]);
       console.log(result);
       return result;
       

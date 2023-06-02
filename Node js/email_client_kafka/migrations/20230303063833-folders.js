@@ -1,7 +1,7 @@
 const { Sequelize } = require('sequelize');
 
-async function up({ context: queryInterface }) {
-    await queryInterface.createTable('Folder', {
+async function up(queryInterface) {
+  await queryInterface.createTable('folder', {
       folder_id: {
         allowNull: false,
         autoIncrement: true,
@@ -14,18 +14,20 @@ async function up({ context: queryInterface }) {
       },
       user_id: {
         type: Sequelize.INTEGER,
-        references:{model:'Users',key:'user_id'},
+        references:{model:'users',key:'user_id'},
         onUpdate:'CASCADE',
         onDelete:'CASCADE'
       },
-      providerId: {
+      folderproviderId: {
         allowNull: true,
         type: Sequelize.INTEGER
       }
     });
   }
 
-  async function down({ context: queryInterface }) {
-    await queryInterface.dropTable('Folder');
+  async function down(queryInterface) {
+    await queryInterface.dropTable('folder');
   }
+  
   module.exports = { up, down };
+  

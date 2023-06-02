@@ -1,6 +1,6 @@
 // console.log("folder data index index.js")
 
-const folder_table = "Folder";
+const folder_table = "folder";
 function makeFolderDbMethods({ connection }) {
   return Object.freeze({
     updateFolder,
@@ -17,7 +17,7 @@ function makeFolderDbMethods({ connection }) {
     const folders = ["inbox", "outbox", "trash", "archieve", "trash"];
     try {
       for (let i in folders) {
-        const [result] = await connection.query(`insert into Folder (user_id,name) values (?,?)`, [
+        await connection.query(`insert into folder (user_id,name) values (?,?)`, [
           id,
           folders[i],]
         );

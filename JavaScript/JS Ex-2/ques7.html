@@ -1,12 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <script>
-        let Months=['January','February','March','April','May','June','July','August','September','October','November','December'];
+      function getMonthName(dateString) {
+        let dateParts = dateString.split(/[-/]/);
+        let monthValue = parseInt(dateParts[1]) - 1;
+
+        let dateObj = new Date(dateParts[2], monthValue, dateParts[0]);
+
+        let monthName = dateObj.toLocaleString("default", { month: "long" });
+
+        return monthName;
+      }
+      let inputDate = "01-07-2020";
+      let monthName = getMonthName(inputDate);
+      console.log(monthName); 
+
+
+      inputDate = "01/07/2020";
+      monthName = getMonthName(inputDate);
+      console.log(monthName); 
+    </script>
+  </head>
+  <body></body>
+</html>
+<!-- let Months=['January','February','March','April','May','June','July','August','September','October','November','December'];
         let dt=prompt("Enter the date");  //Enter in dd-mm-yyy format
         dt=dt.split("-");       //Converting "-" separated string in array to convert it into date
         let temp=dt[0];
@@ -16,8 +38,4 @@
         dt= dt.join("-");       //Joining date(array) separated by '-' to string format
         let d=new Date(dt);     //JavaScript Date function
         document.write("Month : ",Months[d.getMonth()])   //Getting Month of our given date from Month Array
-    </script>
-</head>
-<body>
-</body>
-</html>
+     -->

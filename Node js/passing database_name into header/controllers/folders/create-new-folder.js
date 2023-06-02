@@ -4,22 +4,19 @@ module.exports = function makeCreateFolderController({
   folderExists,
 }) {
   return async function createFolderController(req, res) {
-    console.info(`In create folder controller`, req.body);
+    // console.info(`In create folder controller`, req.body);
     try {
       validInput(req.body);
       const name = req.body.name;
       const user_id = req.body.user_id;
       const database_name = req.headers["database_name"];
-
-      // console.log(name,id);
+      const folderproviderid=req.body.folderproviderid;
       const ans = await folderExists({user_id,name,database_name});
       console.log(ans);
       if (ans) {
-        console.log("Folder Exists");
         res.send("Folder Already Exists");
       } else {
-        console.log("Not Exists");
-        await createFolder({ user_id, name ,database_name});
+        await createFolder({ user_id, name ,database_name,folderproviderid});
         res.status(201).json({
           status: "Success",
           messege: "Folder Created",
@@ -37,6 +34,7 @@ module.exports = function makeCreateFolderController({
       const schema = Joi.object().keys({
       user_id: Joi.number().integer().required(),
       name: Joi.string().required(),
+      folderproviderid:Joi.number()
       })
       const {error}=schema.validate(body);
       if(error)

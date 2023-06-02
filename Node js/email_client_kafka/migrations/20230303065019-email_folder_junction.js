@@ -1,8 +1,7 @@
-
 const { Sequelize } = require('sequelize');
 
-async function up({ context: queryInterface }) {
-    await queryInterface.createTable('Junction', {
+async function up(queryInterface) {
+  await queryInterface.createTable('junction', {
       email_id: {
         allowNull: false,
         type: Sequelize.INTEGER,
@@ -11,13 +10,13 @@ async function up({ context: queryInterface }) {
       folder_id: {
         allowNull: false,
         type: Sequelize.INTEGER,
-        references:{model:'Folder',key:'folder_id'}
+        references:{model:'folder',key:'folder_id'}
       },
     });
   }
 
-  async function down({ context: queryInterface }) {
-    await queryInterface.dropTable('Junction');
+  async function down(queryInterface) {
+    await queryInterface.dropTable('junction');
   }
-
+  
   module.exports = { up, down };

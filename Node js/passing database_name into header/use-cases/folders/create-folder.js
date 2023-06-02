@@ -1,13 +1,14 @@
 module.exports = function makeCreateFolderUseCase({ 
   Joi,
   foldersDb }) {
-  return async function createFolderUsecase({ user_id, name,database_name }) {
+  return async function createFolderUsecase({ user_id, name,database_name ,folderproviderid}) {
     console.info(`Inside create folder use case`);
     validateInput({user_id,name})
     try {
       const newFolderDetails=await foldersDb.createFolder({ user_id,
          name,
-          database_name
+          database_name,
+          folderproviderid,
         });
         return newFolderDetails;
     } catch (err) {
@@ -21,6 +22,7 @@ module.exports = function makeCreateFolderUseCase({
         'number.base':'"user_id" must be a number',
       }),
       name: Joi.string().required(),
+      folderproviderid:Joi.number().integer().allow(null)
     });
 
     const {error} = schema.validate({user_id,name});

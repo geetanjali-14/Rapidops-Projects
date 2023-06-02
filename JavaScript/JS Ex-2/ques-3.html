@@ -1,13 +1,35 @@
-
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <script>
-        let arr=[0,1,1,2,3,4,5,5,5,6,7,7,8,9]
+      function findMostFrequentItem(arr) {
+        let freq = {};
+        let maxFreq = 0;
+        let mostFrequentItem = null;
+
+        for (let i = 0; i < arr.length; i++) {
+          let currentItem = arr[i];
+
+          freq[currentItem] = (freq[currentItem] || 0) + 1;
+
+          if (freq[currentItem] > maxFreq) {
+            maxFreq = freq[currentItem];
+            mostFrequentItem = currentItem;
+          }
+        }
+        return mostFrequentItem;
+      }
+      let arr = [0, 1, 1, 2, 3, 4, 5, 5, 5, 6, 7, 7, 8, 9];
+      console.log("Max Frequent element is ", findMostFrequentItem(arr));
+    </script>
+  </head>
+  <body></body>
+</html>
+<!-- let arr=[0,1,1,2,3,4,5,5,5,6,7,7,8,9]
         let n=14
         let max=0
         let most_freq=0
@@ -26,11 +48,4 @@
             }
             max=0
         }
-        console.log("Max Frequent element is ",x);
-
-    </script>
-</head>
-<body>
-    
-</body>
-</html>
+        console.log("Max Frequent element is ",x); -->

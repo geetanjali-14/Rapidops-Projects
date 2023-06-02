@@ -1,12 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <script>
-        let dt1 = new Date("2020-05-11");
+      function dateDiff(date1, date2) {
+        const diff = Math.abs(date1.getTime() - date2.getTime());
+        const day = 1000 * 60 * 60 * 24;
+        const year = day * 365.25;
+        const month = year / 12;
+
+        const years = Math.floor(diff / year);
+        const months = Math.floor((diff % year) / month);
+        const days = Math.floor((diff % month) / day);
+
+        return `${years} year${years > 1 ? "s" : ""} ${months} month${
+          months > 1 ? "s" : ""
+        } ${days} day${days > 1 ? "s" : ""}`;
+      }
+
+      // Example usage:
+      const date1 = new Date("01/07/2018");
+      const date2 = new Date("03/05/2020");
+      console.log(dateDiff(date1, date2)); // Output: 2 years 1 month 26 days
+    </script>
+  </head>
+  <body></body>
+</html>
+<!-- let dt1 = new Date("2020-05-11");
         let dt2 = new Date("2018-07-14");
 
         let year1 = dt1.getFullYear();
@@ -28,10 +51,4 @@
         }
 
         document.write(`${year1 - year2} years ,  ${month1 - month2}  months , ${days1 - days2} days`);
-
-    </script>
-</head>
-<body>
-    
-</body>
-</html>
+ -->

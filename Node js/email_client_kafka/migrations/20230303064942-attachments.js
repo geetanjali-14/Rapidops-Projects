@@ -1,7 +1,7 @@
 const { Sequelize } = require('sequelize');
 
-async function up({ context: queryInterface }) {
-    await queryInterface.createTable('Attachments', {
+async function up(queryInterface) {
+  await queryInterface.createTable('attachments', {
       ID: {
         allowNull: false,
         autoIncrement: true,
@@ -39,7 +39,8 @@ async function up({ context: queryInterface }) {
       }
     });
   }
-  async function down({ context: queryInterface }) {
-    await queryInterface.dropTable('Attachments');
+  async function down(queryInterface) {
+    await queryInterface.dropTable('attachments');
   }
+  
   module.exports = { up, down };

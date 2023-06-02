@@ -4,7 +4,7 @@ const multer =require("multer");
 const path=require('path')
 const fs=require('fs')
 const mime=require('mime')
-const port=7000;
+const port=8000;
 app.set('view engine','ejs')
 
 const data=multer.diskStorage({

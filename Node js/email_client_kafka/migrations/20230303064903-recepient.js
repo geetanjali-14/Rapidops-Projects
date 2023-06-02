@@ -1,7 +1,7 @@
 const { Sequelize } = require('sequelize');
 
-async function up({ context: queryInterface }) {
-    await queryInterface.createTable('Recipient', {
+async function up(queryInterface) {
+  await queryInterface.createTable('recipient', {
       ID: {
         allowNull: false,
         autoIncrement: true,
@@ -30,7 +30,9 @@ async function up({ context: queryInterface }) {
     });
   }
 
-  async function down({ context: queryInterface }) {
-    await queryInterface.dropTable('Recipient');
+  async function down(queryInterface) {
+    await queryInterface.dropTable('recipient');
   }
+  
   module.exports = { up, down };
+  

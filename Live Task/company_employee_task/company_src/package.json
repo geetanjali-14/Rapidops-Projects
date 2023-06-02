@@ -1,0 +1,19 @@
+{
+  "scripts": {
+    "test": "cucumber-js ./src/use-cases/company/company_exists_by_name.feature"
+  },
+  "dependencies": {
+    "@cucumber/cucumber": "^9.1.2",
+    "axios": "^1.4.0",
+    "chai": "^4.3.7",
+    "cucumber": "^6.0.7",
+    "express": "^4.18.2",
+    "joi": "^17.9.2",
+    "mysql": "^2.18.1",
+    "mysql2": "^3.3.3",
+    "node": "^20.2.0",
+    "sequelize": "^6.31.1",
+    "sinon": "^15.1.0",
+    "umzug": "^3.2.1"
+  }
+}

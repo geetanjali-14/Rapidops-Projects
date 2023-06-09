@@ -1,4 +1,4 @@
-module.exports = function makeGetCompanyEmailByCompanyIdController({
+module.exports = function makeGetCompanyEmailByCompanyIdUseCase({
   Joi,
   companyDB,
   ForbiddenError,

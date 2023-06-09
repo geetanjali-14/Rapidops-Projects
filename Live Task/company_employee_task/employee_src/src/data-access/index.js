@@ -1,4 +1,5 @@
 const makeEmployeeDbMethods = require('./employee_db')
+const makeAccessTokenDbMethods=require('./access_token');
 const mysql= require('mysql2');
 const config = require('../../src/config/service-config/index');
 
@@ -22,7 +23,9 @@ connection.connect((err)=>{
 connection = connection.promise();
 
 const employeeDB = makeEmployeeDbMethods({connection});
+const accessTokensDB=makeAccessTokenDbMethods({connection})
 const dbMethods = {
     employeeDB,
+    accessTokensDB
 }
 module.exports = dbMethods;

@@ -13,7 +13,7 @@ module.exports = function makeDeleteEmployeeUseCase({
     validateInput({ employee_id });
     try {
       console.log("delete employee use-case");
-      const employee_exists = await createEmployeeExistsFunction({
+      const {employee_exists} = await createEmployeeExistsFunction({
         employee_id,
         database_name,
       });
@@ -26,9 +26,9 @@ module.exports = function makeDeleteEmployeeUseCase({
         });
         console.log("Exiting delete employee Usecase");
         return result;
-      } else {
-        console.info("Employee Entered Dose not exists");
-        throw new ForbiddenError("Employee Entered Dose not exists");
+       }else {
+        console.info("Employee entered does not exist");
+        throw new ForbiddenError("Employee does not exist");
       }
     } catch (err) {
       console.error(err);

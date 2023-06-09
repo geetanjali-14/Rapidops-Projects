@@ -4,6 +4,9 @@ const exceptions = require("../../exceptions");
 const internalApis = require("../../internal-api-calls");
 const { Kafka } = require("kafkajs");
 var nodemailer = require("nodemailer");
+const crypto = require("crypto");
+const useCases = require("../access_token");
+
 const makeCreateEmployeeUseCase = require("./create_employee");
 const createCreateEmployeeUseCase = makeCreateEmployeeUseCase({
   Joi,
@@ -87,7 +90,9 @@ const createEmployeeCreationEmailSendUseCase =
     Joi,
     ValidationError: exceptions.ValidationError,
     nodemailer,
-    getCompanyEmailbyCompanyId:internalApis.getCompanyEmailByCompanyID.getCompanyEmailByCompanyID,
+    getCompanyEmailbyCompanyId:
+      internalApis.getCompanyEmailByCompanyID.getCompanyEmailByCompanyID,
+    crypto,
   });
 
 const makeEmployeeEmailExistsUseCase = require("./employee_email_exists");
@@ -95,6 +100,45 @@ const createEmployeeEmailExistsUseCase = makeEmployeeEmailExistsUseCase({
   Joi,
   employeeDB: dataAccess.employeeDB,
 });
+
+const makeUpdateEmployeeVerificationTokenUseCase = require("./update_employee_verification_token");
+const createUpdateEmployeeVerificationTokenUseCase =
+  makeUpdateEmployeeVerificationTokenUseCase({
+    Joi,
+    employeeDB: dataAccess.employeeDB,
+    createEmployeeEmailExistsUseCase,
+    ValidationError: exceptions.ValidationError,
+    ForbiddenError: exceptions.ForbiddenError,
+  });
+
+const makeIsVerifiedEmployeeUseCase = require("./is_verified_employee");
+const createIsVerifiedEmployeeUseCase = makeIsVerifiedEmployeeUseCase({
+  Joi,
+  employeeDB: dataAccess.employeeDB,
+});
+
+const makeGetEmployeeIdByEmployeeEmailUseCase = require("./get_employee_id_by_employee_email");
+const createGetEmployeeIdByEmployeeEmailUseCase =
+  makeGetEmployeeIdByEmployeeEmailUseCase({
+    Joi,
+    employeeDB: dataAccess.employeeDB,
+    ValidationError: exceptions.ValidationError,
+  });
+
+
+const makeEmployeeLoginUseCase = require("./employee_login");
+const createEmployeeLoginUseCase = makeEmployeeLoginUseCase({
+  Joi,
+  employeeEmailExists: createEmployeeEmailExistsUseCase,
+  isVerifiedEmployee: createIsVerifiedEmployeeUseCase,
+  ValidationError: exceptions.ValidationError,
+  employeeDB: dataAccess.employeeDB,
+  createGetEmployeeIdByEmployeeEmailUseCase,
+  generateAccessToken:useCases.createGenerateAccessTokenUseCase,
+});
+
+
+
 module.exports = Object.freeze({
   createCreateEmployeeUseCase,
   createGetCompanyNameByCompanyId,
@@ -106,5 +150,9 @@ module.exports = Object.freeze({
   createDeleteEmployeeOfDeletedCompanyUseCase,
   createUpdateEmployeeWhenCompanyDetailsChangesUseCase,
   createEmployeeCreationEmailSendUseCase,
-  createEmployeeEmailExistsUseCase
+  createEmployeeEmailExistsUseCase,
+  createUpdateEmployeeVerificationTokenUseCase,
+  createIsVerifiedEmployeeUseCase,
+  createEmployeeLoginUseCase,
+  createGetEmployeeIdByEmployeeEmailUseCase,
 });

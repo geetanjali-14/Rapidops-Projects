@@ -1,11 +1,11 @@
-module.exports = function makeGetCompanyNameByCompanyIdController({
+module.exports = function makeGetCompanyNameByCompanyIdUseCase({
   Joi,
   companyDB,
   ForbiddenError,
   ValidationError,
   createCompanyExistsCompanyFunction,
 }) {
-  return async function createGetCompanyNameByCompanyIdController({
+  return async function createGetCompanyNameByCompanyIdFunction({
     company_id,
     database_name,
   }) {

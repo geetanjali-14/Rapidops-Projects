@@ -1,42 +1,46 @@
-const { Sequelize } = require('sequelize');
+const { Sequelize } = require("sequelize");
 
 async function up(queryInterface) {
-  await queryInterface.createTable('employee', {
+  await queryInterface.createTable("employee", {
     employee_id: {
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
-      type: Sequelize.INTEGER
+      type: Sequelize.INTEGER,
+      onDelete: 'CASCADE',
     },
     name: {
       type: Sequelize.STRING,
       allowNull: false,
     },
-    role:
-    {
+    role: {
       type: Sequelize.STRING,
       allowNull: false,
     },
-    company_name:
-    {
+    company_name: {
       type: Sequelize.STRING,
       allowNull: false,
     },
-    company_id:
-    {
+    company_id: {
       type: Sequelize.INTEGER,
-      allowNull: true,
+      allowNull: false,
     },
-    email_id:
-    {
+    email_id: {
       type: Sequelize.STRING,
       allowNull: false,
-    }
+    },
+    password: {
+      type: Sequelize.STRING,
+      allowNull: false,
+    },
+    verified: {
+      type: Sequelize.BOOLEAN,
+      allowNull: false,
+    },
   });
 }
-
 async function down(queryInterface) {
-  await queryInterface.dropTable('employee');
+  await queryInterface.dropTable("employee");
 }
 
 module.exports = { up, down };

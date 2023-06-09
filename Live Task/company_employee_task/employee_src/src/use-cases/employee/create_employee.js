@@ -12,10 +12,11 @@ module.exports = function makeCreateEmployeeUseCase({
     company_id,
     company_name,
     employee_email,
+    password,
     database_name,
   }) {
     console.info('Inside create employee use case');
-    validateInput({ employee_name, role, company_id, company_name, employee_email });
+    validateInput({ employee_name, role, company_id, company_name, employee_email ,password});
     console.log('Create employee use-case');
 
     const companyExistsResult = await companyExists({ company_name });
@@ -28,6 +29,7 @@ module.exports = function makeCreateEmployeeUseCase({
         company_id,
         company_name,
         employee_email,
+        password,
         database_name,
       });
       console.log('Exiting create employee Usecase');
@@ -68,7 +70,7 @@ module.exports = function makeCreateEmployeeUseCase({
     }
   };
 
-  function validateInput({ employee_name, role, company_id, company_name, employee_email }) {
+  function validateInput({ employee_name, role, company_id, company_name, employee_email,password }) {
     const schema = Joi.object({
       employee_name: Joi.string().required().messages({
         'string.base': '"employee_name" must be a string',
@@ -86,6 +88,9 @@ module.exports = function makeCreateEmployeeUseCase({
         'string.base': '"employee_email" must be a string',
         'string.email': '"employee_email" must be a valid email',
       }),
+      password: Joi.string().required().messages({
+        'string.base': '"password" must be a string',
+      }),
     });
 
     const { error } = schema.validate({
@@ -94,6 +99,7 @@ module.exports = function makeCreateEmployeeUseCase({
       company_id,
       company_name,
       employee_email,
+      password,
     });
 
     if (error) {

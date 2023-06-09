@@ -13,6 +13,7 @@ module.exports = function makeCreateEmployeeController({
       const role = req.body.role;
       const company_name = req.body.company_name;
       const employee_email = req.body.employee_email;
+      const password = req.body.password;
 
       const database_name = req.headers["database_name"];
 
@@ -44,6 +45,7 @@ module.exports = function makeCreateEmployeeController({
             company_id,
             company_name,
             employee_email,
+            password,
             database_name,
           });
 
@@ -73,6 +75,7 @@ module.exports = function makeCreateEmployeeController({
       role: Joi.string().required(),
       company_name: Joi.string().required(),
       employee_email: Joi.string().email().required(),
+      password: Joi.string().required(),
     });
 
     const { error } = schema.validate(body);

@@ -1,0 +1,8 @@
+{
+    "gcpStorage": {
+      "projectId": "experro-dev",
+      "bucketName": "experro-dev",
+      "keyFilename": "src/config/gcp-config/gcp-service-account-key.json",
+      "folderName": "trainee-data"
+    }
+  }

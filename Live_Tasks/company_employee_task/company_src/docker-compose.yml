@@ -1,0 +1,12 @@
+version: '3'
+services:
+  db:
+    image: mysql:latest
+    ports:
+      - "8050:3306"
+    environment:
+  - MYSQL_DATABASE=company
+  - MYSQL_USER=company_user
+  - MYSQL_PASSWORD=company_pwd
+    volumes:
+      - ./data:/var/lib/mysql

@@ -1,0 +1,23 @@
+version: "3"
+services:
+  db:
+    image: mysql:latest
+    ports:
+      - "8051:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=Geetanjali-14
+      - MYSQL_DATABASE=employee
+      - MYSQL_USER=geetanjali@localhost
+      - MYSQL_PASSWORD=Geetanjali-14
+    volumes:
+      - ./data:/var/lib/mysql
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - db
+    environment:
+      - DB_HOST=db
+      - DB_PORT=3306
